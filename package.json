@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@svgr/core": "^5.0.1",
+    "@svgr/plugin-prettier": "^5.0.1",
+    "@svgr/plugin-svgo": "^5.1.0",
+    "@types/node": "^13.5.0",
+    "builtin-modules": "^3.1.0",
+    "commander": "^4.1.0",
+    "mkdirp": "^0.5.1",
+    "prettier": "^1.19.1",
+    "rollup": "^1.29.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "typescript": "^3.7.5"
+  }
+}
