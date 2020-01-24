@@ -9,7 +9,7 @@
     "@types/node": "^13.5.0",
     "builtin-modules": "^3.1.0",
     "commander": "^4.1.0",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.3",
     "prettier": "^1.19.1",
     "rollup": "^1.29.1",
     "rollup-plugin-babel": "^4.3.3",
