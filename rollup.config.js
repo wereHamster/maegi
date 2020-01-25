@@ -9,7 +9,14 @@ export default [
       file: "packages/cli/index.js",
       format: "esm"
     },
-    plugins: [resolve(), commonjs(), babel()],
+    plugins: [
+      resolve(),
+      commonjs(),
+      babel({
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        presets: ["@babel/preset-typescript"]
+      })
+    ],
     external: [
       ...require("builtin-modules"),
       ...Object.keys(require("./packages/cli/package.json").dependencies)
