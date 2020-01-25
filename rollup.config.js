@@ -3,6 +3,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 
+const extensions = [".js", ".jsx", ".ts", ".tsx"];
+
 export default [
   {
     input: "src/cli/index.ts",
@@ -11,11 +13,11 @@ export default [
       format: "esm"
     },
     plugins: [
-      resolve(),
+      resolve({ extensions }),
       commonjs(),
       terser(),
       babel({
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        extensions,
         presets: ["@babel/preset-typescript"]
       })
     ],
