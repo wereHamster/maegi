@@ -12,31 +12,6 @@ program
   .action((source, { output = path.join(process.env.PWD, "src", "icons") }) => {
     mkdirp.sync(output);
 
-    function generate(filename, f) {
-      const stream = fs.createWriteStream(filename);
-      console.log(filename);
-
-      stream.write(`/*\n`);
-      stream.write(` * !!! THIS IS A GENERATED FILE – DO NOT EDIT !!!\n`);
-      stream.write(` */\n`);
-      stream.write(`\n`);
-
-      f((str, options = {}) => {
-        if (options.prettier) {
-          stream.write(
-            prettier.format(str, {
-              parser: "typescript",
-              ...options.prettier
-            })
-          );
-        } else {
-          stream.write(str);
-        }
-      });
-
-      stream.end();
-    }
-
     /*
      * Load all icons from the source folder into memory.
      */
@@ -178,4 +153,31 @@ function parseFilename(s: string): { name: string; size: number } {
     name: toCamelCase(path.basename(s, ".svg").replace(/_(\d+)dp$/, "")),
     size: sizeMatch ? +sizeMatch[1] : 0
   };
+}
+
+function generate(
+  filename: string,
+  f: (_: (str: string, options?: any) => void) => void
+): void {
+  const stream = fs.createWriteStream(filename);
+
+  stream.write(`/*\n`);
+  stream.write(` * !!! THIS IS A GENERATED FILE – DO NOT EDIT !!!\n`);
+  stream.write(` */\n`);
+  stream.write(`\n`);
+
+  f((str, options = {}) => {
+    if (options.prettier) {
+      stream.write(
+        prettier.format(str, {
+          parser: "typescript",
+          ...options.prettier
+        })
+      );
+    } else {
+      stream.write(str);
+    }
+  });
+
+  stream.end();
 }
