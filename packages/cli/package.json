@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@maegi/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "@svgr/core": "^5.0.1",
     "@svgr/plugin-prettier": "^5.0.1",
