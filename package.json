@@ -4,7 +4,7 @@
     "@babel/core": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
     "@rollup/plugin-commonjs": "^11.0.1",
-    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@rollup/plugin-node-resolve": "^7.1.0",
     "@svgr/core": "^5.0.1",
     "@svgr/plugin-prettier": "^5.0.1",
     "@svgr/plugin-svgo": "^5.1.0",
