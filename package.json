@@ -10,7 +10,7 @@
     "@svgr/plugin-svgo": "^5.1.0",
     "@types/node": "^13.7.0",
     "builtin-modules": "^3.1.0",
-    "commander": "^4.1.0",
+    "commander": "^4.1.1",
     "mkdirp": "^1.0.3",
     "prettier": "^1.19.1",
     "rollup": "^1.31.0",
