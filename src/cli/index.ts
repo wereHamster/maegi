@@ -1,4 +1,4 @@
-import svgr from "@svgr/core";
+import * as svgr from "@svgr/core";
 import program from "commander";
 import * as fs from "fs";
 import mkdirp from "mkdirp";
