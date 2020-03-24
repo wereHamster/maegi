@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  create:
+    tags:
+      - release/*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: TypeScript
+        run: yarn tsc --build
+
+      - name: Build packages
+        run: yarn rollup -c rollup.config.js
+
+      - run: ./scripts/release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
