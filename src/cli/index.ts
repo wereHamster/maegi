@@ -191,7 +191,7 @@ function writeIconModule(base: string) {
   return async ([name, instances]: [string, any]) => {
     await mkdirp(path.join(base, name));
     await generate(path.join(base, name, "index.tsx"), write => {
-      write(`import * as React from "react";\n`);
+      write(`import React from "react";\n`);
       write(`\n`);
 
       const sortedInstances = [...instances].sort((a, b) => a.size - b.size);

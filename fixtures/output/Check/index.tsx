@@ -2,7 +2,7 @@
  * !!! THIS IS A GENERATED FILE – DO NOT EDIT !!!
  */
 
-import * as React from "react";
+import React from "react";
 
 export const Check24 = React.memo<React.SVGProps<SVGSVGElement>>((props) => (
   <svg width={24} height={24} viewBox="0 0 24 24" {...props}>

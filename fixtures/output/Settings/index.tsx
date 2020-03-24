@@ -2,7 +2,7 @@
  * !!! THIS IS A GENERATED FILE – DO NOT EDIT !!!
  */
 
-import * as React from "react";
+import React from "react";
 
 export const Settings40 = React.memo<React.SVGProps<SVGSVGElement>>((props) => (
   <svg width={40} height={40} viewBox="0 0 40 40" {...props}>
