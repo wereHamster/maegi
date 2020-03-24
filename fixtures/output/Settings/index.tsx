@@ -4,7 +4,7 @@
 
 import * as React from "react";
 
-export const Settings40 = React.memo<React.SVGProps<SVGSVGElement>>(props => (
+export const Settings40 = React.memo<React.SVGProps<SVGSVGElement>>((props) => (
   <svg width={40} height={40} viewBox="0 0 40 40" {...props}>
     <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="square" strokeWidth={3}>
       <circle cx={20.49} cy={20} r={4} />
@@ -15,5 +15,5 @@ export const Settings40 = React.memo<React.SVGProps<SVGSVGElement>>(props => (
 
 export const __descriptor_Settings = {
   name: "Settings",
-  instances: [{ size: 40, Component: Settings40 }]
+  instances: [{ size: 40, Component: Settings40 }],
 };

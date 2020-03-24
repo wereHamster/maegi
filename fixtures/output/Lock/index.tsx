@@ -4,7 +4,7 @@
 
 import * as React from "react";
 
-export const Lock40 = React.memo<React.SVGProps<SVGSVGElement>>(props => (
+export const Lock40 = React.memo<React.SVGProps<SVGSVGElement>>((props) => (
   <svg width={40} height={40} viewBox="0 0 40 40" {...props}>
     <g fill="none" fillRule="evenodd">
       <path stroke="currentColor" strokeWidth={2} d="M12 17a1 1 0 00-1 1v12a1 1 0 001 1h16a1 1 0 001-1V18a1 1 0 00-1-1H12z" />
@@ -17,5 +17,5 @@ export const Lock40 = React.memo<React.SVGProps<SVGSVGElement>>(props => (
 
 export const __descriptor_Lock = {
   name: "Lock",
-  instances: [{ size: 40, Component: Lock40 }]
+  instances: [{ size: 40, Component: Lock40 }],
 };

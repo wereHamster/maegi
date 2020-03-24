@@ -16,5 +16,5 @@ export const descriptors: Descriptor[] = [
   __descriptor_Check,
   __descriptor_Letter,
   __descriptor_Lock,
-  __descriptor_Settings
+  __descriptor_Settings,
 ];
