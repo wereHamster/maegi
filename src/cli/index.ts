@@ -157,8 +157,7 @@ async function loadIcons(sourceFolder: string) {
       return template.smart({ plugins: ["typescript"] })
         .ast`export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});`;
     },
-    prettier: false,
-    plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx", "@svgr/plugin-prettier"],
+    plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
     svgoConfig: {
       multipass: true,
       plugins: [

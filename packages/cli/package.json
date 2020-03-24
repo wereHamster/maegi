@@ -3,7 +3,6 @@
   "version": "0.0.5",
   "dependencies": {
     "@svgr/core": "^5.0.1",
-    "@svgr/plugin-prettier": "^5.0.1",
     "@svgr/plugin-svgo": "^5.1.0",
     "prettier": "^1.19.1"
   },
