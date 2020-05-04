@@ -175,6 +175,12 @@ async function loadIcons(source: string) {
   };
 
   if (source.startsWith("figma://")) {
+    const fetchOptions = {
+      headers: {
+        "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN,
+      },
+    };
+
     const { key, id } = (() => {
       const { host: key, pathname } = new URL(source);
       return { key, id: pathname.substring(1) };
@@ -183,11 +189,7 @@ async function loadIcons(source: string) {
     const nodes = await (async () => {
       const json = await fetch(
         `https://api.figma.com/v1/files/${key}/nodes?ids=${id}`,
-        {
-          headers: {
-            "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN,
-          },
-        }
+        fetchOptions
       ).then((res) => res.json());
 
       return json.nodes[id].document.children
@@ -198,16 +200,16 @@ async function loadIcons(source: string) {
         .filter((n) => n.name.match(/ic_/));
     })();
 
-    console.log(nodes)
+    if (nodes.length === 0) {
+      console.log("");
+      console.log("No icons found on the page");
+      process.exit(1);
+    }
 
     const ids = nodes.map((n) => n.id);
     const { images } = await fetch(
       `https://api.figma.com/v1/images/${key}?ids=${ids.join(",")}&format=svg`,
-      {
-        headers: {
-          "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN,
-        },
-      }
+      fetchOptions
     ).then((res) => res.json());
 
     return Promise.all(
@@ -220,7 +222,7 @@ async function loadIcons(source: string) {
         const src = await fetch(url).then((res) => res.text());
 
         const code = await svgr.default(src, options, {
-          componentName: `${name}${size}`,
+          componentName: `${name}${size || ""}`,
         });
 
         return { code, src, name, size };
@@ -238,7 +240,7 @@ async function loadIcons(source: string) {
         const src = await fs.promises.readFile(path.join(source, id), "utf8");
 
         const code = await svgr.default(src, options, {
-          componentName: `${name}${size}`,
+          componentName: `${name}${size || ""}`,
         });
 
         return { code, src, name, size };
@@ -267,7 +269,9 @@ function writeIconModule(base: string) {
       ${sortedInstances
         .map(
           ({ size }) =>
-            `{ size: ${size || `"responsive"`}, Component: ${name}${size} }`
+            `{ size: ${size || `"responsive"`}, Component: ${name}${
+              size || ""
+            } }`
         )
         .join(",")}
     ]
