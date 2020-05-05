@@ -96,9 +96,6 @@ async function main(source: string, options: any): Promise<void> {
      * … descriptors for the documentation.
      */
     generate(path.join(output, "descriptors.ts"), (write) => {
-      write(`import { Descriptor } from "@valde/iconography"\n`);
-      write(`\n`);
-
       for (const name of names) {
         write(`import { __descriptor_${name} } from "./${name}"\n`);
       }
@@ -108,9 +105,9 @@ async function main(source: string, options: any): Promise<void> {
       write(`export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`);
       write(`\n`);
       write(
-        `export const descriptors: Descriptor[] = [${names.map(
+        `export const descriptors = [${names.map(
           (name) => `__descriptor_${name}`
-        )}]`,
+        )}] as const`,
         { prettier: {} }
       );
     }),
@@ -275,7 +272,7 @@ function writeIconModule(base: string) {
         )
         .join(",")}
     ]
-  };
+  } as const;
   `,
         { prettier: {} }
       );

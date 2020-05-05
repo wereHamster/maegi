@@ -29,4 +29,4 @@ export const __descriptor_Check = {
     { size: 48, Component: Check48 },
     { size: 64, Component: Check64 },
   ],
-};
+} as const;

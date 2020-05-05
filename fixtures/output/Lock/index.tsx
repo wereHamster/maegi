@@ -18,4 +18,4 @@ export const Lock40 = React.memo<React.SVGProps<SVGSVGElement>>((props) => (
 export const __descriptor_Lock = {
   name: "Lock",
   instances: [{ size: 40, Component: Lock40 }],
-};
+} as const;

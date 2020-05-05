@@ -16,4 +16,4 @@ export const Settings40 = React.memo<React.SVGProps<SVGSVGElement>>((props) => (
 export const __descriptor_Settings = {
   name: "Settings",
   instances: [{ size: 40, Component: Settings40 }],
-};
+} as const;
