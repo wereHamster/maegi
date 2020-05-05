@@ -9,6 +9,7 @@
     "@svgr/plugin-svgo": "^5.4.0",
     "@types/node": "^13.13.0",
     "builtin-modules": "^3.1.0",
+    "node-fetch": "^2.6.0",
     "commander": "^5.1.0",
     "mkdirp": "^1.0.4",
     "prettier": "^2.0.4",
