@@ -1,25 +1,7 @@
-import * as svgr from "@svgr/core";
 import fetch from "node-fetch";
-import { parseFilename, Assets } from "../../shared";
+import { Assets, parseFilename } from "../../shared";
 
 export async function loadAssets(source: string): Promise<Assets> {
-  const options = {
-    template({ template }, _, { componentName, jsx }) {
-      return template.smart({ plugins: ["typescript"] })
-        .ast`export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});`;
-    },
-    plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
-    svgoConfig: {
-      multipass: true,
-      plugins: [
-        { removeViewBox: false },
-        { sortAttrs: true },
-        { convertColors: { currentColor: true } },
-        { removeAttrs: { attrs: "(xmlns.*)" } },
-      ],
-    },
-  };
-
   const fetchOptions = {
     headers: {
       "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN,
@@ -60,15 +42,9 @@ export async function loadAssets(source: string): Promise<Assets> {
   const icons = await Promise.all(
     Object.keys(images).map(async (k) => {
       const { name, size } = parseFilename(nodes.find((n) => n.id === k)!.name);
+      const src = await fetch(images[k]).then((res) => res.text());
 
-      const url = images[k];
-      const src = await fetch(url).then((res) => res.text());
-
-      const code = (await svgr.default(src, options, {
-        componentName: `${name}${size || ""}`,
-      })) as string;
-
-      return { code, src, name, size };
+      return { src, name, size };
     })
   );
 

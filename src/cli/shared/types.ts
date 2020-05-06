@@ -1,26 +1,20 @@
 export interface Assets {
-  icons: Array<{
-    /**
-     * ic_(.*)_([0-9+]dp)
-     */
-    name: string;
-
-    size: number;
-
-    /**
-     * The original source string.
-     */
-    src: string;
-
-    /**
-     * 'src' as React code.
-     *
-     * TODO: Remove, the Asset should not contain the compiled code.
-     */
-    code: string;
-  }>;
-
+  icons: Array<Icon>;
   images: Array<Image>;
+}
+
+export interface Icon {
+  /**
+   * ic_(.*)_([0-9+]dp)
+   */
+  name: string;
+
+  size: number;
+
+  /**
+   * The original source string.
+   */
+  src: string;
 }
 
 type Image = { svg: string } | { buffer: Buffer };

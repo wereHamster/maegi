@@ -1,7 +1,9 @@
+import * as svgr from "@svgr/core";
 import * as fs from "fs";
 import mkdirp from "mkdirp";
 import * as path from "path";
 import prettier from "prettier";
+import { Icon } from "./types";
 
 export * from "./types";
 
@@ -55,20 +57,15 @@ export async function generate(
  * which exports a bunch of icons).
  */
 export function writeIconModule(base: string) {
-  interface Instances {
-    size: number;
-    code: string;
-  }
-
-  return async ([name, instances]: [string, Instances[]]) => {
+  return async ([name, instances]: [string, Icon[]]) => {
     await mkdirp(path.join(base, name));
     await generate(path.join(base, name, "index.tsx"), (write) => {
       write(`import React from "react";\n`);
       write(`\n`);
 
       const sortedInstances = [...instances].sort((a, b) => a.size - b.size);
-      for (const { code } of sortedInstances) {
-        write(`${code}`, { prettier: { printWidth: Infinity } });
+      for (const icon of sortedInstances) {
+        write(`${iconCode(icon)}`, { prettier: { printWidth: Infinity } });
         write(`\n`);
       }
 
@@ -91,4 +88,27 @@ export function writeIconModule(base: string) {
       );
     });
   };
+}
+
+export async function iconCode({ name, size, src }: Icon): Promise<string> {
+  const options = {
+    template({ template }, _, { componentName, jsx }) {
+      return template.smart({ plugins: ["typescript"] })
+        .ast`export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});`;
+    },
+    plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
+    svgoConfig: {
+      multipass: true,
+      plugins: [
+        { removeViewBox: false },
+        { sortAttrs: true },
+        { convertColors: { currentColor: true } },
+        { removeAttrs: { attrs: "(xmlns.*)" } },
+      ],
+    },
+  };
+
+  return svgr.default(src, options, {
+    componentName: `${name}${size || ""}`,
+  });
 }
