@@ -2,9 +2,10 @@
   "name": "@maegi/cli",
   "version": "0.0.0",
   "dependencies": {
-    "@svgr/core": "^5.0.1",
-    "@svgr/plugin-svgo": "^5.1.0",
-    "prettier": "^1.19.1"
+    "@svgr/core": "^5.4.0",
+    "@svgr/plugin-svgo": "^5.4.0",
+    "prettier": "^2.0.4",
+    "sharp": "^0.25.2"
   },
   "bin": {
     "maegi": "./bin"

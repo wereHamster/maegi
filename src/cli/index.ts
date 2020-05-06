@@ -1,72 +1,54 @@
-import * as svgr from "@svgr/core";
 import program from "commander";
 import * as fs from "fs";
 import mkdirp from "mkdirp";
-import fetch from "node-fetch";
 import * as path from "path";
-import prettier from "prettier";
 import textTable from "text-table";
+import { generate, Icon, Image, writeIconModule } from "./shared";
+import { Figma, Local } from "./source";
 import { groupBy } from "./stdlib/groupBy";
+import sharp from "sharp";
 
 program
   .arguments("<source>")
-  .option("-o, --output <dir>", "output directory")
+  .option("-v, --verbose", "Verbose output")
+  .option("--icons <dir>", "output directory for icons (default: src/icons)")
+  .option("--images <dir>", "output directory for images (default: assets)")
   .action(main);
 
 program.parse(process.argv);
 
-function toCamelCase(x: string) {
-  return ("_" + x.replace(/^ic_/, "")).replace(
-    /^([A-Z])|[\s-_](\w)/g,
-    function (_match, p1, p2) {
-      return p2 ? p2.toUpperCase() : p1.toLowerCase();
-    }
-  );
+interface Options {
+  verbose: boolean;
+  icons: string;
+  images: string;
 }
 
-function parseFilename(s: string): { name: string; size: number } {
-  const sizeMatch = s.match(/_(\d+)dp(\.svg)?$/);
-
-  return {
-    name: toCamelCase(path.basename(s, ".svg").replace(/_(\d+)dp$/, "")),
-    size: sizeMatch ? +sizeMatch[1] : 0,
+async function main(source: string, options0: any): Promise<void> {
+  const defaultOptions = {
+    icons: path.join(process.env.PWD, "src", "icons"),
+    images: path.join(process.env.PWD, "assets"),
   };
-}
 
-async function generate(
-  filename: string,
-  f: (_: (str: string, options?: any) => void) => void
-): Promise<void> {
-  const stream = fs.createWriteStream(filename);
+  const options = { ...defaultOptions, ...options0 };
 
-  stream.write(`/*\n`);
-  stream.write(` * !!! THIS IS A GENERATED FILE – DO NOT EDIT !!!\n`);
-  stream.write(` */\n`);
-  stream.write(`\n`);
-
-  f((str, options = {}) => {
-    if (options.prettier) {
-      stream.write(
-        prettier.format(str, {
-          parser: "typescript",
-          ...options.prettier,
-        })
-      );
+  const { icons, images } = await (async () => {
+    if (source.startsWith("figma://")) {
+      return Figma.loadAssets(source);
     } else {
-      stream.write(str);
+      return Local.loadAssets(source);
     }
-  });
+  })();
 
-  return new Promise((resolve) => stream.end(resolve));
+  if (options.icons) {
+    await emitIcons(options, icons);
+  }
+
+  if (options.images) {
+    await emitImages(options, images);
+  }
 }
 
-async function main(source: string, options: any): Promise<void> {
-  const { output = path.join(process.env.PWD, "src", "icons") } = options;
-
-  /*
-   * Load all icons from the source folder into memory.
-   */
-  const icons = await loadIcons(source);
+async function emitIcons(opts: Options, icons: Array<Icon>) {
   const allSizes = [...new Set(icons.map((x) => x.size))].sort(
     (a, b) => +a - +b
   );
@@ -76,35 +58,37 @@ async function main(source: string, options: any): Promise<void> {
   /*
    * Generate the files, everything in parallel.
    */
-  await mkdirp(output);
+  await mkdirp(opts.icons);
   await Promise.all([
     /*
      * … individual icon modules
      */
-    ...[...groups.entries()].map(writeIconModule(output)),
+    ...[...groups.entries()].map(writeIconModule(opts.icons)),
 
     /*
-     * …  index file which re-exports all icons.
+     * … index file which re-exports all icons.
      */
-    generate(path.join(output, "index.ts"), (write) => {
+    generate(path.join(opts.icons, "index.ts"), async (write) => {
       for (const name of names) {
-        write(`export * from "./${name}"\n`);
+        await write(`export * from "./${name}"\n`);
       }
     }),
 
     /*
      * … descriptors for the documentation.
      */
-    generate(path.join(output, "descriptors.ts"), (write) => {
+    generate(path.join(opts.icons, "descriptors.ts"), async (write) => {
       for (const name of names) {
-        write(`import { __descriptor_${name} } from "./${name}"\n`);
+        await write(`import { __descriptor_${name} } from "./${name}"\n`);
       }
 
-      write(`\n`);
-      write(`export type Size = ${allSizes.join(" | ")}\n`);
-      write(`export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`);
-      write(`\n`);
-      write(
+      await write(`\n`);
+      await write(`export type Size = ${allSizes.join(" | ")}\n`);
+      await write(
+        `export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`
+      );
+      await write(`\n`);
+      await write(
         `export const descriptors = [${names.map(
           (name) => `__descriptor_${name}`
         )}] as const`,
@@ -113,169 +97,60 @@ async function main(source: string, options: any): Promise<void> {
     }),
   ]);
 
-  /*
-   * Print statistics to stdout.
-   */
-  console.log("");
-  console.log(
-    textTable([
-      ["", ...allSizes],
-      [],
-      ...names.map((name, i) => {
-        const symbol =
-          i === 0
-            ? names.length === 1
-              ? "─"
-              : "┌"
-            : i === names.length - 1
-            ? "└"
-            : "├";
+  if (opts.verbose) {
+    /*
+     * Print statistics to stdout.
+     */
+    console.log("");
+    console.log(
+      textTable([
+        ["", ...allSizes],
+        [],
+        ...names.map((name, i) => {
+          const symbol =
+            i === 0
+              ? names.length === 1
+                ? "─"
+                : "┌"
+              : i === names.length - 1
+              ? "└"
+              : "├";
 
-        const instances = groups.get(name);
-        const sizes = allSizes.map((x) =>
-          instances.some((i) => i.size === x) ? "*".padStart(2) : "".padStart(2)
-        );
+          const instances = groups.get(name);
+          const sizes = allSizes.map((x) =>
+            instances.some((i) => i.size === x)
+              ? "*".padStart(2)
+              : "".padStart(2)
+          );
 
-        return [`${symbol} ${name.padEnd(10)}`, ...sizes];
-      }),
-    ])
-  );
-  console.log("");
-}
-
-async function enumerateIcons(source: string): Promise<string[]> {
-  if (source.startsWith("figma://")) {
-  } else {
-    const allFiles = await fs.promises.readdir(source);
-    return allFiles.filter((icon) => icon.match(/^ic_.*\.svg$/));
+          return [`${symbol} ${name.padEnd(10)}`, ...sizes];
+        }),
+      ])
+    );
+    console.log("");
   }
 }
 
-async function loadIcons(source: string) {
-  const ids = await enumerateIcons(source);
+async function emitImages(opts: Options, images: Array<Image>) {
+  await mkdirp(opts.images);
 
-  const options = {
-    template({ template }, _, { componentName, jsx }) {
-      return template.smart({ plugins: ["typescript"] })
-        .ast`export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});`;
-    },
-    plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
-    svgoConfig: {
-      multipass: true,
-      plugins: [
-        { removeViewBox: false },
-        { sortAttrs: true },
-        { convertColors: { currentColor: true } },
-        { removeAttrs: { attrs: "(xmlns.*)" } },
-      ],
-    },
-  };
+  for (const image of images) {
+    await mkdirp(path.join(opts.images, path.dirname(image.name)));
 
-  if (source.startsWith("figma://")) {
-    const fetchOptions = {
-      headers: {
-        "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN,
-      },
-    };
-
-    const { key, id } = (() => {
-      const { host: key, pathname } = new URL(source);
-      return { key, id: pathname.substring(1) };
-    })();
-
-    const nodes = await (async () => {
-      const json = await fetch(
-        `https://api.figma.com/v1/files/${key}/nodes?ids=${id}`,
-        fetchOptions
-      ).then((res) => res.json());
-
-      return json.nodes[id].document.children
-        .map((node) => ({
-          id: node.id,
-          name: node.name,
-        }))
-        .filter((n) => n.name.match(/ic_/));
-    })();
-
-    if (nodes.length === 0) {
-      console.log("");
-      console.log("No icons found on the page");
-      process.exit(1);
-    }
-
-    const ids = nodes.map((n) => n.id);
-    const { images } = await fetch(
-      `https://api.figma.com/v1/images/${key}?ids=${ids.join(",")}&format=svg`,
-      fetchOptions
-    ).then((res) => res.json());
-
-    return Promise.all(
-      Object.keys(images).map(async (k) => {
-        const { name, size } = parseFilename(
-          nodes.find((n) => n.id === k)!.name
-        );
-
-        const url = images[k];
-        const src = await fetch(url).then((res) => res.text());
-
-        const code = await svgr.default(src, options, {
-          componentName: `${name}${size || ""}`,
-        });
-
-        return { code, src, name, size };
-      })
-    );
-  } else {
-    const ids = await (async () => {
-      const allFiles = await fs.promises.readdir(source);
-      return allFiles.filter((icon) => icon.match(/^ic_.*\.svg$/));
-    })();
-
-    return await Promise.all(
-      ids.map(async (id) => {
-        const { name, size } = parseFilename(id);
-        const src = await fs.promises.readFile(path.join(source, id), "utf8");
-
-        const code = await svgr.default(src, options, {
-          componentName: `${name}${size || ""}`,
-        });
-
-        return { code, src, name, size };
-      })
-    );
-  }
-}
-
-function writeIconModule(base: string) {
-  return async ([name, instances]: [string, any]) => {
-    await mkdirp(path.join(base, name));
-    await generate(path.join(base, name, "index.tsx"), (write) => {
-      write(`import React from "react";\n`);
-      write(`\n`);
-
-      const sortedInstances = [...instances].sort((a, b) => a.size - b.size);
-      for (const { code } of sortedInstances) {
-        write(`${code}`, { prettier: { printWidth: Infinity } });
-        write(`\n`);
-      }
-
-      write(
-        `export const __descriptor_${name} = {
-    name: "${name}",
-    instances: [
-      ${sortedInstances
-        .map(
-          ({ size }) =>
-            `{ size: ${size || `"responsive"`}, Component: ${name}${
-              size || ""
-            } }`
-        )
-        .join(",")}
-    ]
-  } as const;
-  `,
-        { prettier: {} }
+    if ("svg" in image) {
+      const stream = fs.createWriteStream(
+        path.join(opts.images, `${image.name}.svg`)
       );
-    });
-  };
+      stream.write(image.svg);
+      await new Promise((resolve) => stream.end(resolve));
+    } else if ("buffer" in image) {
+      const stream = fs.createWriteStream(
+        path.join(opts.images, `${image.name}.webp`)
+      );
+      stream.write(
+        await sharp(image.buffer).webp({ lossless: true }).toBuffer()
+      );
+      await new Promise((resolve) => stream.end(resolve));
+    }
+  }
 }
