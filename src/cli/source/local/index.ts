@@ -3,18 +3,20 @@ import * as path from "path";
 import { Assets, parseIconName } from "../../shared";
 
 export async function loadAssets(source: string): Promise<Assets> {
-  const ids = await (async () => {
+  const iconNames = await (async () => {
     const allFiles = await fs.promises.readdir(source);
-    return allFiles.filter((icon) => icon.match(/^ic_.*\.svg$/));
+    return allFiles.flatMap((icon) => {
+      const iconName = parseIconName(icon);
+      return iconName ? [iconName] : [];
+    });
   })();
 
   const icons = await Promise.all(
-    ids.map(async (id) => {
-      const { name, size } = parseIconName(id);
-      const src = await fs.promises.readFile(path.join(source, id), "utf8");
-
-      return { src, name, size };
-    })
+    iconNames.map(async ({ name, size }) => ({
+      src: await fs.promises.readFile(path.join(source, name) + ".svg", "utf8"),
+      name,
+      size,
+    }))
   );
 
   return { icons, images: [] };

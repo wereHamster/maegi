@@ -5,7 +5,7 @@ import { groupBy } from "../../stdlib/groupBy";
 export async function loadAssets(source: string): Promise<Assets> {
   const fetchOptions = {
     headers: {
-      "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN,
+      "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN!,
     },
   };
 
@@ -44,7 +44,7 @@ export async function loadAssets(source: string): Promise<Assets> {
       Object.keys(images).map(async (k) => {
         const { name, size } = parseIconName(
           nodes.find((n) => n.id === k)!.name
-        );
+        )!;
         const src = await fetch(images[k]).then((res) => res.text());
 
         return { src, name, size };
@@ -53,25 +53,27 @@ export async function loadAssets(source: string): Promise<Assets> {
   })();
 
   const images = await (async (): Promise<Array<Image>> => {
-    const sources = nodes.flatMap((n) => {
-      if (!n.name.match(/ic_/) && n.exportSettings) {
-        return n.exportSettings.flatMap(({ format }) => {
-          if (format === "SVG" || format === "PNG") {
-            return [
-              {
-                id: n.id,
-                name: n.name,
-                format,
-              },
-            ];
-          } else {
-            return [];
-          }
-        });
-      } else {
-        return [];
+    const sources = nodes.flatMap(
+      (n: { id: string; name: string; exportSettings: any[] }) => {
+        if (!n.name.match(/ic_/) && n.exportSettings) {
+          return n.exportSettings.flatMap(({ format }: { format: string }) => {
+            if (format === "SVG" || format === "PNG") {
+              return [
+                {
+                  id: n.id as string,
+                  name: n.name as string,
+                  format: format as "SVG" | "PNG",
+                },
+              ];
+            } else {
+              return [];
+            }
+          });
+        } else {
+          return [];
+        }
       }
-    });
+    );
 
     if (sources.length === 0) {
       return [];
@@ -102,7 +104,7 @@ export async function loadAssets(source: string): Promise<Assets> {
                         return {
                           name,
                           svg: await fetch(url).then((res) => res.text()),
-                        };
+                        } as Image;
                       },
                       PNG: async () => {
                         return {
@@ -110,7 +112,7 @@ export async function loadAssets(source: string): Promise<Assets> {
                           buffer: Buffer.from(
                             await fetch(url).then((res) => res.arrayBuffer())
                           ),
-                        };
+                        } as Image;
                       },
                     }[format],
                   ];

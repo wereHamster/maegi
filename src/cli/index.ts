@@ -25,8 +25,8 @@ interface Options {
 
 async function main(source: string, options0: any): Promise<void> {
   const defaultOptions = {
-    icons: path.join(process.env.PWD, "src", "icons"),
-    images: path.join(process.env.PWD, "assets"),
+    icons: path.join(process.env.PWD!, "src", "icons"),
+    images: path.join(process.env.PWD!, "assets"),
   };
 
   const options = { ...defaultOptions, ...options0 };
@@ -116,7 +116,7 @@ async function emitIcons(opts: Options, icons: Array<Icon>) {
               ? "└"
               : "├";
 
-          const instances = groups.get(name);
+          const instances = groups.get(name) || [];
           const sizes = allSizes.map((x) =>
             instances.some((i) => i.size === x)
               ? "*".padStart(2)

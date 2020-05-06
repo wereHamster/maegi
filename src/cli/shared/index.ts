@@ -100,7 +100,7 @@ export function writeIconModule(base: string) {
  */
 export async function iconCode({ name, size, src }: Icon): Promise<string> {
   const options = {
-    template({ template }, _, { componentName, jsx }) {
+    template({ template }: any, _: any, { componentName, jsx }: any) {
       return template.smart({ plugins: ["typescript"] })
         .ast`export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});`;
     },
