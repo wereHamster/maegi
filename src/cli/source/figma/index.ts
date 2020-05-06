@@ -72,5 +72,5 @@ export async function loadAssets(source: string): Promise<Assets> {
     })
   );
 
-  return { icons };
+  return { icons, images: [] };
 }

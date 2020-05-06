@@ -19,4 +19,8 @@ export interface Assets {
      */
     code: string;
   }>;
+
+  images: Array<Image>;
 }
+
+type Image = { svg: string } | { buffer: Buffer };
