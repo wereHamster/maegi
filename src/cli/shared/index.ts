@@ -16,12 +16,15 @@ export function toCamelCase(x: string) {
   );
 }
 
-export function parseIconName(s: string): { name: string; size: number } {
-  const sizeMatch = s.match(/_(\d+)dp(\.svg)?$/);
+export function parseIconName(s: string) {
+  const sizeMatch = s.match(/ic_(.*)_(\d+)dp(\.svg)?$/);
+  if (!sizeMatch) {
+    return undefined;
+  }
 
   return {
     name: toCamelCase(path.basename(s, ".svg").replace(/_(\d+)dp$/, "")),
-    size: sizeMatch ? +sizeMatch[1] : 0,
+    size: sizeMatch ? +sizeMatch[2] : 0,
   };
 }
 
@@ -92,6 +95,9 @@ export function writeIconModule(base: string) {
   };
 }
 
+/**
+ * Convert an Icon into React code.
+ */
 export async function iconCode({ name, size, src }: Icon): Promise<string> {
   const options = {
     template({ template }, _, { componentName, jsx }) {
@@ -111,6 +117,24 @@ export async function iconCode({ name, size, src }: Icon): Promise<string> {
   };
 
   return svgr.default(src, options, {
-    componentName: `${name}${size || ""}`,
+    componentName: `${name}${size}`,
   });
+}
+
+export function groupBy<T, K>(f: (x: T) => K, xs: T[]): Map<K, T[]> {
+  const m = new Map<K, T[]>();
+
+  const l = xs.length;
+  for (let i = 0; i < l; ++i) {
+    const x = xs[i];
+    const k = f(x);
+    const g = m.get(k);
+    if (g === undefined) {
+      m.set(k, [x]);
+    } else {
+      g.push(x);
+    }
+  }
+
+  return m;
 }

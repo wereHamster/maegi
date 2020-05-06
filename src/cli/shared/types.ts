@@ -17,4 +17,6 @@ export interface Icon {
   src: string;
 }
 
-type Image = { svg: string } | { buffer: Buffer };
+export type Image =
+  | { name: string; svg: string }
+  | { name: string; buffer: Buffer };
