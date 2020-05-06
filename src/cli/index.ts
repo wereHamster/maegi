@@ -10,11 +10,18 @@ import sharp from "sharp";
 
 program
   .arguments("<source>")
+  .option("-v, --verbose", "Verbose output")
   .option("--icons <dir>", "output directory for icons (default: src/icons)")
   .option("--images <dir>", "output directory for images (default: assets)")
   .action(main);
 
 program.parse(process.argv);
+
+interface Options {
+  verbose: boolean;
+  icons: string;
+  images: string;
+}
 
 async function main(source: string, options0: any): Promise<void> {
   const defaultOptions = {
@@ -33,15 +40,15 @@ async function main(source: string, options0: any): Promise<void> {
   })();
 
   if (options.icons) {
-    await emitIcons(options.icons, icons);
+    await emitIcons(options, icons);
   }
 
   if (options.images) {
-    await emitImages(images);
+    await emitImages(options, images);
   }
 }
 
-async function emitIcons(output: string, icons: Array<Icon>) {
+async function emitIcons(opts: Options, icons: Array<Icon>) {
   const allSizes = [...new Set(icons.map((x) => x.size))].sort(
     (a, b) => +a - +b
   );
@@ -51,17 +58,17 @@ async function emitIcons(output: string, icons: Array<Icon>) {
   /*
    * Generate the files, everything in parallel.
    */
-  await mkdirp(output);
+  await mkdirp(opts.icons);
   await Promise.all([
     /*
      * … individual icon modules
      */
-    ...[...groups.entries()].map(writeIconModule(output)),
+    ...[...groups.entries()].map(writeIconModule(opts.icons)),
 
     /*
      * … index file which re-exports all icons.
      */
-    generate(path.join(output, "index.ts"), async (write) => {
+    generate(path.join(opts.icons, "index.ts"), async (write) => {
       for (const name of names) {
         await write(`export * from "./${name}"\n`);
       }
@@ -70,7 +77,7 @@ async function emitIcons(output: string, icons: Array<Icon>) {
     /*
      * … descriptors for the documentation.
      */
-    generate(path.join(output, "descriptors.ts"), async (write) => {
+    generate(path.join(opts.icons, "descriptors.ts"), async (write) => {
       for (const name of names) {
         await write(`import { __descriptor_${name} } from "./${name}"\n`);
       }
@@ -90,51 +97,55 @@ async function emitIcons(output: string, icons: Array<Icon>) {
     }),
   ]);
 
-  /*
-   * Print statistics to stdout.
-   */
-  console.log("");
-  console.log(
-    textTable([
-      ["", ...allSizes],
-      [],
-      ...names.map((name, i) => {
-        const symbol =
-          i === 0
-            ? names.length === 1
-              ? "─"
-              : "┌"
-            : i === names.length - 1
-            ? "└"
-            : "├";
+  if (opts.verbose) {
+    /*
+     * Print statistics to stdout.
+     */
+    console.log("");
+    console.log(
+      textTable([
+        ["", ...allSizes],
+        [],
+        ...names.map((name, i) => {
+          const symbol =
+            i === 0
+              ? names.length === 1
+                ? "─"
+                : "┌"
+              : i === names.length - 1
+              ? "└"
+              : "├";
 
-        const instances = groups.get(name);
-        const sizes = allSizes.map((x) =>
-          instances.some((i) => i.size === x) ? "*".padStart(2) : "".padStart(2)
-        );
+          const instances = groups.get(name);
+          const sizes = allSizes.map((x) =>
+            instances.some((i) => i.size === x)
+              ? "*".padStart(2)
+              : "".padStart(2)
+          );
 
-        return [`${symbol} ${name.padEnd(10)}`, ...sizes];
-      }),
-    ])
-  );
-  console.log("");
+          return [`${symbol} ${name.padEnd(10)}`, ...sizes];
+        }),
+      ])
+    );
+    console.log("");
+  }
 }
 
-async function emitImages(images: Array<Image>) {
-  await mkdirp("assets");
+async function emitImages(opts: Options, images: Array<Image>) {
+  await mkdirp(opts.images);
 
   for (const image of images) {
-    await mkdirp(path.join("assets", path.dirname(image.name)));
+    await mkdirp(path.join(opts.images, path.dirname(image.name)));
 
     if ("svg" in image) {
       const stream = fs.createWriteStream(
-        path.join("assets", `${image.name}.svg`)
+        path.join(opts.images, `${image.name}.svg`)
       );
       stream.write(image.svg);
       await new Promise((resolve) => stream.end(resolve));
     } else if ("buffer" in image) {
       const stream = fs.createWriteStream(
-        path.join("assets", `${image.name}.webp`)
+        path.join(opts.images, `${image.name}.webp`)
       );
       stream.write(
         await sharp(image.buffer).webp({ lossless: true }).toBuffer()
