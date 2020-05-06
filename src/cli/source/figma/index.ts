@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
-import { Assets, Icon, Image, parseIconName, groupBy } from "../../shared";
+import { Assets, Icon, Image, parseIconName } from "../../shared";
+import { groupBy } from "../../stdlib/groupBy";
 
 export async function loadAssets(source: string): Promise<Assets> {
   const fetchOptions = {
