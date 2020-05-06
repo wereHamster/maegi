@@ -1,47 +1,40 @@
-maegi is a commandline tool which converts a folder full of SVG icons (which follow a strict naming convention) into a folder full of React components which you can import in a React project.
 
-It is very simular to svgr (in fact, it uses @svgr/core internally), but instead of just mapping each input SVG file into one React component, it contains a bit more logic. That however requires that the SVG files follow a specific naming convention. This tool is suited for processing SVG icons, and less suited for processing arbitrary SVGs (illustrations, images, charts etc).
+Maegi is a commandline tool that prepares design assets for use in a React project. It currently supports two kinds of sources for these assets: The local filesystem and Figma.
 
-Naming convention: `ic_<name>_<size>dp.svg`. The `<name>` can be an arbitrary ASCII string, and is converted into CamelCase for the corresponding React component. The `<size>` is the size of the icon in pixels. Example: `ic_arrow-down_24dp.svg`.
+## Usage
 
-The tool groups icons by name, if you have multiple icons with the same name which differ only by their size.
-
-For each group, the tool creates a folder, and places the React components in it.
-
-It'll also create an index file which re-exports all icons, for your convenience, so you can `import * as Icons from "…/icons"`
-
-The tool also generates a file witl all icon descriptors for [@valde/iconography](https://valde.caurea.org/#/packages/iconography).
-
-The result is a folder which looks and behaves like a npm package. While it is not a specific goal of this tool that the output folder is published into a npm registry, you should think of the output as such.
-
-# Example
-
-Input
+Source is local filesystem:
 
 ```
-svg/
-  ic_arrow-down_24dp.svg
-  ic_arrow-down_40dp.svg
-  ic_check_24dp.svg
+npx @maegi/cli source/folder/with/svgfiles
 ```
 
-Command:
+Source is Figma (file: UGrPhqJowS8w5IkcsaxKYo, id 36:1 inside that page)
 
 ```
-npx @maegi/cli svg -o src/icons
+FIGMA_TOKEN=XXX npx @maegi/cli figma://UGrPhqJowS8w5IkcsaxKYo/36:2
 ```
 
-Output:
+Commandline option:
 
-```
-src/icons/monochrome/
-  index.ts         // Re-exports all icons.
-  descriptors.ts   // An index of all icon descriptors for @valde/iconography.
-  ArrowDown/
-    index.tsx      // Contains <ArrowDown24> and <ArrowDown40>
-  Check
-    index.tsx      // Contains <Check24>
-```
+ - `--icons <dir>`: Folder to which to write out the React icons (default: `src/icons`).
+ - `--images <dir>`: Folder to which to write out the images (default: `assets`).
 
-```
-```
+Maegi generates the following assets:
+
+ - Icons: SVGs which follow a specific naming convention are converted to React components.
+ - Images: Images marked in Figma as exports are downloaded and saved as SVG or lossless webp.
+
+## Icons
+
+The naming convention for icons is `ic_<name>_<size>dp`. The `<name>` can be an arbitrary ASCII string, and is converted into CamelCase for the corresponding React component. The `<size>` is the size of the icon in pixels. Example: `ic_arrow-right_24dp.svg`. Inside Figma the icons can have arbitrary prefix (eg. `icons/24dp/ic_arrow-right_24dp`).
+
+When generating the JavaScript modules with the React components, the icons are grouped by name and one module is writen per name. For example, `src/icons/ArrowRight.tsx` may contain `<ArrowRight16>`, `<ArrowRight24>`, and `<ArrowRight64>` components.
+
+Maegi also creates an index file which re-exports all icons, for your convenience, so you can `import * as Icons from "src/icons"`.
+
+## Images
+
+Images marked for export in Figma are downloaded and placed into the output folder. Both SVG and PNG format is supported.
+
+PNG images are converted to lossless webp to save space.
