@@ -1,9 +1,9 @@
 import * as svgr from "@svgr/core";
 import * as fs from "fs";
 import * as path from "path";
-import { parseFilename } from "../../shared";
+import { parseFilename, Assets } from "../../shared";
 
-export async function loadIcons(source: string) {
+export async function loadAssets(source: string): Promise<Assets> {
   const options = {
     template({ template }, _, { componentName, jsx }) {
       return template.smart({ plugins: ["typescript"] })
@@ -26,16 +26,18 @@ export async function loadIcons(source: string) {
     return allFiles.filter((icon) => icon.match(/^ic_.*\.svg$/));
   })();
 
-  return await Promise.all(
+  const icons = await Promise.all(
     ids.map(async (id) => {
       const { name, size } = parseFilename(id);
       const src = await fs.promises.readFile(path.join(source, id), "utf8");
 
-      const code = await svgr.default(src, options, {
+      const code = (await svgr.default(src, options, {
         componentName: `${name}${size || ""}`,
-      });
+      })) as string;
 
       return { code, src, name, size };
     })
   );
+
+  return { icons };
 }

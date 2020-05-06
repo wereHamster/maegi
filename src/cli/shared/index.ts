@@ -3,6 +3,8 @@ import mkdirp from "mkdirp";
 import * as path from "path";
 import prettier from "prettier";
 
+export * from "./types";
+
 export function toCamelCase(x: string) {
   return ("_" + x.replace(/^ic_/, "")).replace(
     /^([A-Z])|[\s-_](\w)/g,

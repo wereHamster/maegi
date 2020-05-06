@@ -1,8 +1,8 @@
 import * as svgr from "@svgr/core";
 import fetch from "node-fetch";
-import { parseFilename } from "../../shared";
+import { parseFilename, Assets } from "../../shared";
 
-export async function loadIcons(source: string) {
+export async function loadAssets(source: string): Promise<Assets> {
   const options = {
     template({ template }, _, { componentName, jsx }) {
       return template.smart({ plugins: ["typescript"] })
@@ -57,18 +57,20 @@ export async function loadIcons(source: string) {
     fetchOptions
   ).then((res) => res.json());
 
-  return Promise.all(
+  const icons = await Promise.all(
     Object.keys(images).map(async (k) => {
       const { name, size } = parseFilename(nodes.find((n) => n.id === k)!.name);
 
       const url = images[k];
       const src = await fetch(url).then((res) => res.text());
 
-      const code = await svgr.default(src, options, {
+      const code = (await svgr.default(src, options, {
         componentName: `${name}${size || ""}`,
-      });
+      })) as string;
 
       return { code, src, name, size };
     })
   );
+
+  return { icons };
 }

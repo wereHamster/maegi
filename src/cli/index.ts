@@ -2,7 +2,7 @@ import program from "commander";
 import mkdirp from "mkdirp";
 import * as path from "path";
 import textTable from "text-table";
-import { generate, writeIconModule } from "./shared";
+import { generate, writeIconModule, Assets } from "./shared";
 import { Figma, Local } from "./source";
 import { groupBy } from "./stdlib/groupBy";
 
@@ -19,7 +19,7 @@ async function main(source: string, options: any): Promise<void> {
   /*
    * Load all icons from the source folder into memory.
    */
-  const icons = await loadIcons(source);
+  const { icons } = await loadAssets(source);
   const allSizes = [...new Set(icons.map((x) => x.size))].sort(
     (a, b) => +a - +b
   );
@@ -96,10 +96,10 @@ async function main(source: string, options: any): Promise<void> {
   console.log("");
 }
 
-async function loadIcons(source: string) {
+async function loadAssets(source: string): Promise<Assets> {
   if (source.startsWith("figma://")) {
-    return Figma.loadIcons(source);
+    return Figma.loadAssets(source);
   } else {
-    return Local.loadIcons(source)
+    return Local.loadAssets(source);
   }
 }
