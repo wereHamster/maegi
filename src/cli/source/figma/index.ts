@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { Assets, parseFilename } from "../../shared";
+import { Assets, parseIconName } from "../../shared";
 
 export async function loadAssets(source: string): Promise<Assets> {
   const fetchOptions = {
@@ -41,7 +41,7 @@ export async function loadAssets(source: string): Promise<Assets> {
 
   const icons = await Promise.all(
     Object.keys(images).map(async (k) => {
-      const { name, size } = parseFilename(nodes.find((n) => n.id === k)!.name);
+      const { name, size } = parseIconName(nodes.find((n) => n.id === k)!.name);
       const src = await fetch(images[k]).then((res) => res.text());
 
       return { src, name, size };

@@ -16,7 +16,7 @@ export function toCamelCase(x: string) {
   );
 }
 
-export function parseFilename(s: string): { name: string; size: number } {
+export function parseIconName(s: string): { name: string; size: number } {
   const sizeMatch = s.match(/_(\d+)dp(\.svg)?$/);
 
   return {
@@ -27,7 +27,7 @@ export function parseFilename(s: string): { name: string; size: number } {
 
 export async function generate(
   filename: string,
-  f: (_: (str: string, options?: any) => void) => void
+  f: (_: (str: string, options?: any) => Promise<void>) => Promise<void>
 ): Promise<void> {
   const stream = fs.createWriteStream(filename);
 
@@ -36,7 +36,7 @@ export async function generate(
   stream.write(` */\n`);
   stream.write(`\n`);
 
-  f((str, options = {}) => {
+  await f(async (str, options = {}) => {
     if (options.prettier) {
       stream.write(
         prettier.format(str, {
@@ -59,13 +59,15 @@ export async function generate(
 export function writeIconModule(base: string) {
   return async ([name, instances]: [string, Icon[]]) => {
     await mkdirp(path.join(base, name));
-    await generate(path.join(base, name, "index.tsx"), (write) => {
+    await generate(path.join(base, name, "index.tsx"), async (write) => {
       write(`import React from "react";\n`);
       write(`\n`);
 
       const sortedInstances = [...instances].sort((a, b) => a.size - b.size);
       for (const icon of sortedInstances) {
-        write(`${iconCode(icon)}`, { prettier: { printWidth: Infinity } });
+        write(`${await iconCode(icon)}`, {
+          prettier: { printWidth: Infinity },
+        });
         write(`\n`);
       }
 

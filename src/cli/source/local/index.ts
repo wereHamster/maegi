@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { Assets, parseFilename } from "../../shared";
+import { Assets, parseIconName } from "../../shared";
 
 export async function loadAssets(source: string): Promise<Assets> {
   const ids = await (async () => {
@@ -10,7 +10,7 @@ export async function loadAssets(source: string): Promise<Assets> {
 
   const icons = await Promise.all(
     ids.map(async (id) => {
-      const { name, size } = parseFilename(id);
+      const { name, size } = parseIconName(id);
       const src = await fs.promises.readFile(path.join(source, id), "utf8");
 
       return { src, name, size };

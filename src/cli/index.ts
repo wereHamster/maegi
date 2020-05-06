@@ -39,25 +39,27 @@ async function main(source: string, options: any): Promise<void> {
     /*
      * … index file which re-exports all icons.
      */
-    generate(path.join(output, "index.ts"), (write) => {
+    generate(path.join(output, "index.ts"), async (write) => {
       for (const name of names) {
-        write(`export * from "./${name}"\n`);
+        await write(`export * from "./${name}"\n`);
       }
     }),
 
     /*
      * … descriptors for the documentation.
      */
-    generate(path.join(output, "descriptors.ts"), (write) => {
+    generate(path.join(output, "descriptors.ts"), async (write) => {
       for (const name of names) {
-        write(`import { __descriptor_${name} } from "./${name}"\n`);
+        await write(`import { __descriptor_${name} } from "./${name}"\n`);
       }
 
-      write(`\n`);
-      write(`export type Size = ${allSizes.join(" | ")}\n`);
-      write(`export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`);
-      write(`\n`);
-      write(
+      await write(`\n`);
+      await write(`export type Size = ${allSizes.join(" | ")}\n`);
+      await write(
+        `export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`
+      );
+      await write(`\n`);
+      await write(
         `export const descriptors = [${names.map(
           (name) => `__descriptor_${name}`
         )}] as const`,
