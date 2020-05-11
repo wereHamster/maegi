@@ -37,7 +37,7 @@ jobs:
         run: yarn rollup -c rollup.config.js
 
       - name: Generate output from iconset fixture
-        run: ./packages/cli/bin fixtures/iconset/ --icons fixtures/output
+        run: rm -rf fixtures/output && ./packages/cli/bin --config fixtures/maegi.yml
 
       - name: Ensure clean worktree
         run: git diff --exit-code

@@ -23,6 +23,7 @@ export function parseIconName(s: string) {
   }
 
   return {
+    id: path.basename(s, ".svg"),
     name: toCamelCase(path.basename(s, ".svg").replace(/_(\d+)dp$/, "")),
     size: sizeMatch ? +sizeMatch[2] : 0,
   };
