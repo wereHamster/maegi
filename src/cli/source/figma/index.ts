@@ -2,10 +2,14 @@ import fetch from "node-fetch";
 import { Assets, Icon, Image, parseIconName } from "../../shared";
 import { groupBy } from "../../stdlib/groupBy";
 
-export async function loadAssets(source: string): Promise<Assets> {
+interface Options {
+  figmaToken?: string;
+}
+
+export async function loadAssets(options: Options, source: string): Promise<Assets> {
   const fetchOptions = {
     headers: {
-      "X-FIGMA-TOKEN": process.env.FIGMA_TOKEN!,
+      "X-FIGMA-TOKEN": options.figmaToken!,
     },
   };
 

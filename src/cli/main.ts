@@ -13,6 +13,7 @@ import YAML from "yaml";
 interface Options {
   verbose: boolean;
   config: string;
+  figmaToken?: string;
 }
 
 export async function main(options: Options): Promise<void> {
@@ -28,7 +29,11 @@ export async function main(options: Options): Promise<void> {
         },
         async (config) => {
           for (const source of config.sources) {
-            await run(options, base, source);
+            await run(
+              { figmaToken: process.env.FIGMA_TOKEN, ...options },
+              base,
+              source
+            );
           }
         }
       )
@@ -43,7 +48,7 @@ async function run(
 ): Promise<void> {
   const { icons, images } = await (async () => {
     if (source.startsWith("figma://")) {
-      return Figma.loadAssets(source);
+      return Figma.loadAssets(options, source);
     } else {
       return Local.loadAssets(base, source);
     }
