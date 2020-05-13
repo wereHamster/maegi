@@ -20,10 +20,10 @@ export async function main(options: Options): Promise<void> {
   if (options.config) {
     const base = path.dirname(options.config);
     const raw = YAML.parse(fs.readFileSync(options.config, "utf-8"));
-    pipeable.pipe(
+    await pipeable.pipe(
       Config.decode(raw),
       either.fold(
-        (err) => {
+        async (err) => {
           console.log(err);
           process.exit(1);
         },
