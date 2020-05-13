@@ -25,5 +25,43 @@ export default [
       ...require("builtin-modules"),
       ...Object.keys(require("./packages/cli/package.json").dependencies)
     ]
+  },
+  // {
+  //   input: "src/app/index.ts",
+  //   output: {
+  //     file: "worker/stepper.js",
+  //     format: "commonjs"
+  //   },
+  //   plugins: [
+  //     resolve({ extensions }),
+  //     commonjs(),
+  //     babel({
+  //       extensions,
+  //       presets: ["@babel/preset-typescript"]
+  //     })
+  //   ],
+  //   external: [
+  //     ...require("builtin-modules"),
+  //     ...Object.keys(require("./package.json").dependencies)
+  //   ]
+  // },
+  {
+    input: "src/worker/index.ts",
+    output: {
+      file: "worker/index.js",
+      format: "commonjs"
+    },
+    plugins: [
+      resolve({ extensions }),
+      commonjs(),
+      babel({
+        extensions,
+        presets: ["@babel/preset-typescript"]
+      })
+    ],
+    external: [
+      ...require("builtin-modules"),
+      ...Object.keys(require("./package.json").dependencies)
+    ]
   }
 ];
