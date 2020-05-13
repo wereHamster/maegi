@@ -6,7 +6,7 @@
     "@google-cloud/datastore": "^5.1.0",
     "@google-cloud/secret-manager": "^3.0.0",
     "@octokit/app": "^4.2.0",
-    "@octokit/graphql": "^4.3.1",
+    "@octokit/graphql": "^4.4.0",
     "@octokit/request": "^5.4.2",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-node-resolve": "^7.1.3",
