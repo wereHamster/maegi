@@ -2,8 +2,14 @@ import * as fs from "fs";
 import * as path from "path";
 import { Assets, parseIconName } from "../../shared";
 
-export async function loadAssets(source: string): Promise<Assets> {
-  const { pathname: dir } = new URL(source);
+export async function loadAssets(
+  base: string,
+  source: string
+): Promise<Assets> {
+  const dir = (() => {
+    const { pathname: dir } = new URL(source);
+    return path.join(base, dir);
+  })();
 
   const iconNames = await (async () => {
     const allFiles = await fs.promises.readdir(dir);

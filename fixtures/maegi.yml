@@ -1,6 +1,6 @@
 apiVersion: v1
 sources:
-  - source: local:./fixtures/iconset
+  - source: local:iconset
     extractors:
       icons:
-        output: fixtures/output
+        output: output
