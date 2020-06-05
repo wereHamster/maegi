@@ -2,7 +2,7 @@
   "type": "module",
   "dependencies": {
     "@babel/core": "^7.10.0",
-    "@babel/preset-typescript": "^7.9.0",
+    "@babel/preset-typescript": "^7.10.1",
     "@octokit/graphql": "^4.5.0",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
