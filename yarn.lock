@@ -1116,10 +1116,10 @@ form-data@^3.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-fp-ts@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.6.0.tgz#55dc9e82612a44a7bfed3484b18c535514d63e51"
-  integrity sha512-4EKVa3EOP3NoDwXCLgSCT2t+E2wPCWDXCuj3wEcQ1ovkLfdCMxKxCuElpXptIPBmtA+KbjnUl5Ta/1U3jsCmkg==
+fp-ts@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.6.3.tgz#f08e8b8b13d652ce7f1d4da875cb5d6246109d37"
+  integrity sha512-d/djF6VTApJB9DwD/yec2dlKd7h3oqiOv+6vtBnC1pKbHrhz7aEAGcKd4luraUQDJ3pt3C6W4Npd8s+l5xIquQ==
 
 fs-constants@^1.0.0:
   version "1.0.0"
