@@ -1,5 +1,12 @@
 import fetch from "node-fetch";
-import { Assets, Icon, Image, parseIconName, Color } from "../../shared";
+import {
+  Assets,
+  Icon,
+  Image,
+  parseIconName,
+  Color,
+  emptyAssets,
+} from "../../shared";
 import { groupBy } from "../../stdlib/groupBy";
 
 interface Options {
@@ -24,7 +31,7 @@ export async function loadAssets(
     return { key, id: pathname.substring(1) };
   })();
 
-  const file = await fetch(
+  const file = fetch(
     `https://api.figma.com/v1/files/${key}`,
     fetchOptions
   ).then((res) => res.json());
@@ -33,7 +40,7 @@ export async function loadAssets(
    * Fetch all direct children of the node. These are the nodes which are eligible
    * to be treated as icons or images.
    */
-  const nodes = await (async () => {
+  const nodes = (async () => {
     const json = await fetch(
       `https://api.figma.com/v1/files/${key}/nodes?ids=${id}`,
       fetchOptions
@@ -41,8 +48,10 @@ export async function loadAssets(
     return json.nodes[id].document.children as any[];
   })();
 
-  const icons = await (async (): Promise<Array<Icon>> => {
-    const ids = nodes.flatMap((n) => (parseIconName(n.name) ? [n.id] : []));
+  const icons = (async (): Promise<Array<Icon>> => {
+    const ids = (await nodes).flatMap((n) =>
+      parseIconName(n.name) ? [n.id] : []
+    );
     if (ids.length === 0) {
       return [];
     }
@@ -55,7 +64,7 @@ export async function loadAssets(
     return await Promise.all(
       Object.keys(images).map(async (k) => {
         const { name, size } = parseIconName(
-          nodes.find((n) => n.id === k)!.name
+          (await nodes).find((n) => n.id === k)!.name
         )!;
         const src = await fetch(images[k]).then((res) => res.text());
 
@@ -64,8 +73,8 @@ export async function loadAssets(
     );
   })();
 
-  const images = await (async (): Promise<Array<Image>> => {
-    const sources = nodes.flatMap(
+  const images = (async (): Promise<Array<Image>> => {
+    const sources = (await nodes).flatMap(
       (n: { id: string; name: string; exportSettings: any[] }) => {
         if (!n.name.match(/ic_/) && n.exportSettings) {
           return n.exportSettings.flatMap(({ format }: { format: string }) => {
@@ -137,8 +146,8 @@ export async function loadAssets(
     ).flat();
   })();
 
-  const colors = await (async (): Promise<Array<Color>> => {
-    const styles = file.styles;
+  const colors = (async (): Promise<Array<Color>> => {
+    const styles = (await file).styles;
 
     const rgbToHex = (r: number, g: number, b: number) =>
       "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -166,7 +175,7 @@ export async function loadAssets(
           go(node.children);
         }
       }
-    })(nodes);
+    })(await nodes);
 
     return colors.map((c) => ({
       name: c.name,
@@ -174,5 +183,19 @@ export async function loadAssets(
     }));
   })();
 
-  return { icons, images, colors };
+  return {
+    ...emptyAssets,
+
+    get icons() {
+      return icons;
+    },
+
+    get images() {
+      return images;
+    },
+
+    get colors() {
+      return colors;
+    },
+  };
 }

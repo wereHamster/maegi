@@ -1,8 +1,14 @@
 export interface Assets {
-  icons: Array<Icon>;
-  images: Array<Image>;
-  colors: Array<Color>;
+  icons: Promise<Array<Icon>>;
+  images: Promise<Array<Image>>;
+  colors: Promise<Array<Color>>;
 }
+
+export const emptyAssets: Assets = {
+  icons: Promise.resolve([]),
+  images: Promise.resolve([]),
+  colors: Promise.resolve([]),
+};
 
 export interface Icon {
   /**

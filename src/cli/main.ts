@@ -54,7 +54,7 @@ async function run(
   base: string,
   { source, extractors }: Source
 ): Promise<void> {
-  const { icons, images, colors } = await (async () => {
+  const assets = await (() => {
     if (source.startsWith("figma://")) {
       return Figma.loadAssets(options, source);
     } else {
@@ -63,16 +63,16 @@ async function run(
   })();
 
   await Promise.all(
-    Object.entries(extractors).map(([k, v]) => {
+    Object.entries(extractors).map(async ([k, v]) => {
       switch (k) {
         case "icons": {
-          return emitIcons(options, base, v as any, icons);
+          return emitIcons(options, base, v as any, await assets.icons);
         }
         case "assets": {
-          return emitImages(options, base, v as any, images);
+          return emitImages(options, base, v as any, await assets.images);
         }
         case "colors": {
-          return emitColors(options, base, v as any, colors);
+          return emitColors(options, base, v as any, await assets.colors);
         }
       }
     })
