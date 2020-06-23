@@ -190,6 +190,8 @@ async function emitColors(
   { output }: { output: string },
   colors: Array<Color>
 ) {
+  await mkdirp(path.join(base, path.dirname(output)));
+
   const obj: any = {};
   for (const c of colors) {
     deepSet(obj, c.color, c.name.split("/"));
