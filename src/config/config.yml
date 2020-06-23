@@ -6,3 +6,5 @@ sources:
        output: assets
      icons:
        output: src/icons
+     colors:
+       output: src/theme/colors.ts

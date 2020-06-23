@@ -1,6 +1,7 @@
 export interface Assets {
   icons: Array<Icon>;
   images: Array<Image>;
+  colors: Array<Color>;
 }
 
 export interface Icon {
@@ -20,3 +21,8 @@ export interface Icon {
 export type Image =
   | { name: string; svg: string }
   | { name: string; buffer: Buffer };
+
+export interface Color {
+  name: string;
+  color: string;
+}

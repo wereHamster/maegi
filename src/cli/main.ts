@@ -5,7 +5,7 @@ import * as path from "path";
 import sharp from "sharp";
 import textTable from "text-table";
 import { Config, Source } from "../config";
-import { generate, Icon, Image, writeIconModule } from "./shared";
+import { generate, Icon, Image, writeIconModule, Color } from "./shared";
 import { Figma, Local } from "./source";
 import { groupBy } from "./stdlib/groupBy";
 import YAML from "yaml";
@@ -46,7 +46,7 @@ async function run(
   base: string,
   { source, extractors }: Source
 ): Promise<void> {
-  const { icons, images } = await (async () => {
+  const { icons, images, colors } = await (async () => {
     if (source.startsWith("figma://")) {
       return Figma.loadAssets(options, source);
     } else {
@@ -60,6 +60,10 @@ async function run(
 
   if (extractors.assets) {
     await emitImages(options, base, extractors.assets as any, images);
+  }
+
+  if (extractors.colors) {
+    await emitColors(options, base, extractors.colors as any, colors);
   }
 }
 
@@ -177,5 +181,34 @@ async function emitImages(
       );
       await new Promise((resolve) => stream.end(resolve));
     }
+  }
+}
+
+async function emitColors(
+  {}: Options,
+  base: string,
+  { output }: { output: string },
+  colors: Array<Color>
+) {
+  const obj: any = {};
+  for (const c of colors) {
+    deepSet(obj, c.color, c.name.split("/"));
+  }
+
+  generate(path.join(base, output), async (write) => {
+    await write(`export const colors = ${JSON.stringify(obj)}\n`, {
+      prettier: {},
+    });
+  });
+
+  function deepSet(obj: any, value: unknown, path: string[]) {
+    let i;
+    for (i = 0; i < path.length - 1; i++) {
+      if (!obj[path[i]]) {
+        obj[path[i]] = {};
+      }
+      obj = obj[path[i]];
+    }
+    obj[path[i]] = value;
   }
 }

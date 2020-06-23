@@ -38,6 +38,8 @@ jobs:
 
       - name: Generate output from iconset fixture
         run: rm -rf fixtures/output && ./packages/cli/bin --config fixtures/maegi.yml
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
 
       - name: Ensure clean worktree
         run: git diff --exit-code

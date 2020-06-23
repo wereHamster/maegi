@@ -1,12 +1,15 @@
 import fetch from "node-fetch";
-import { Assets, Icon, Image, parseIconName } from "../../shared";
+import { Assets, Icon, Image, parseIconName, Color } from "../../shared";
 import { groupBy } from "../../stdlib/groupBy";
 
 interface Options {
   figmaToken?: string;
 }
 
-export async function loadAssets(options: Options, source: string): Promise<Assets> {
+export async function loadAssets(
+  options: Options,
+  source: string
+): Promise<Assets> {
   const fetchOptions = {
     headers: {
       "X-FIGMA-TOKEN": options.figmaToken!,
@@ -20,6 +23,11 @@ export async function loadAssets(options: Options, source: string): Promise<Asse
     const { host: key, pathname } = new URL(source);
     return { key, id: pathname.substring(1) };
   })();
+
+  const file = await fetch(
+    `https://api.figma.com/v1/files/${key}`,
+    fetchOptions
+  ).then((res) => res.json());
 
   /*
    * Fetch all direct children of the node. These are the nodes which are eligible
@@ -129,5 +137,42 @@ export async function loadAssets(options: Options, source: string): Promise<Asse
     ).flat();
   })();
 
-  return { icons, images };
+  const colors = await (async (): Promise<Array<Color>> => {
+    const styles = file.styles;
+
+    const rgbToHex = (r: number, g: number, b: number) =>
+      "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+    const colors: Array<Color> = [];
+
+    (function go(nodes: any) {
+      for (const node of nodes) {
+        if (node.styles && node.styles.fill) {
+          const style = styles[node.styles.fill];
+          if (style) {
+            const { r, g, b } = node.fills[0].color;
+            colors.push({
+              name: style.name,
+              color: rgbToHex(
+                Math.round(r * 255),
+                Math.round(g * 255),
+                Math.round(b * 255)
+              ),
+            });
+          }
+        }
+
+        if (node.children) {
+          go(node.children);
+        }
+      }
+    })(nodes);
+
+    return colors.map((c) => ({
+      name: c.name,
+      color: c.color,
+    }));
+  })();
+
+  return { icons, images, colors };
 }

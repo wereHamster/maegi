@@ -27,5 +27,5 @@ export async function loadAssets(
     }))
   );
 
-  return { icons, images: [] };
+  return { icons, images: [], colors: [] };
 }
