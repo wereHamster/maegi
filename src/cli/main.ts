@@ -15,25 +15,36 @@ interface Options {
   figmaToken?: string;
 }
 
-export async function main(config: string, options: Options): Promise<void> {
-  const base = path.dirname(config);
-  const raw = YAML.parse(fs.readFileSync(config, "utf-8"));
-  await pipeable.pipe(
-    Config.decode(raw),
+export async function main(configPath: string, opts: Options): Promise<void> {
+  /*
+   * Parse and validate the config file.
+   */
+  const config = pipeable.pipe(
+    Config.decode(YAML.parse(fs.readFileSync(configPath, "utf-8"))),
     either.fold(
-      async (err) => {
+      (err) => {
+        console.log("Could not decode config file");
         console.log(err);
         process.exit(1);
       },
-      async (config) => {
-        for (const source of config.sources) {
-          await run(
-            { figmaToken: process.env.FIGMA_TOKEN, ...options },
-            base,
-            source
-          );
-        }
+      (config) => {
+        return config;
       }
+    )
+  );
+
+  /*
+   * Paths inside the config file are relative to it (not relative to cwd)!
+   */
+  const basePath = path.dirname(configPath);
+
+  /*
+   * Process all sources in parallel. The majority of configs will have only
+   * one source though.
+   */
+  await Promise.all(
+    config.sources.map(async (source) =>
+      run({ figmaToken: process.env.FIGMA_TOKEN, ...opts }, basePath, source)
     )
   );
 }
@@ -51,17 +62,21 @@ async function run(
     }
   })();
 
-  if (extractors.icons) {
-    await emitIcons(options, base, extractors.icons as any, icons);
-  }
-
-  if (extractors.assets) {
-    await emitImages(options, base, extractors.assets as any, images);
-  }
-
-  if (extractors.colors) {
-    await emitColors(options, base, extractors.colors as any, colors);
-  }
+  await Promise.all(
+    Object.entries(extractors).map(([k, v]) => {
+      switch (k) {
+        case "icons": {
+          return emitIcons(options, base, v as any, icons);
+        }
+        case "assets": {
+          return emitImages(options, base, v as any, images);
+        }
+        case "colors": {
+          return emitColors(options, base, v as any, colors);
+        }
+      }
+    })
+  );
 }
 
 async function emitIcons(
