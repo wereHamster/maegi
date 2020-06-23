@@ -196,9 +196,11 @@ async function emitColors(
   }
 
   generate(path.join(base, output), async (write) => {
-    await write(`export const colors = ${JSON.stringify(obj)}\n`, {
-      prettier: {},
-    });
+    for (const [k, v] of Object.entries(obj)) {
+      await write(`export const ${k} = ${JSON.stringify(v)}\n`, {
+        prettier: {},
+      });
+    }
   });
 
   function deepSet(obj: any, value: unknown, path: string[]) {
