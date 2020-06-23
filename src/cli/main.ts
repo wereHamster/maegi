@@ -1,14 +1,10 @@
-import { pipeable, either } from "fp-ts";
+import { either, pipeable } from "fp-ts";
 import * as fs from "fs";
-import mkdirp from "mkdirp";
 import * as path from "path";
-import sharp from "sharp";
-import textTable from "text-table";
-import { Config, Source } from "../config";
-import { generate, Icon, Image, writeIconModule, Color } from "./shared";
-import { Figma, Local } from "./source";
-import { groupBy } from "./stdlib/groupBy";
 import YAML from "yaml";
+import { Config, Source } from "../config";
+import * as Extractors from "../extractors";
+import { Figma, Local } from "./source";
 
 interface Options {
   verbose: boolean;
@@ -66,165 +62,27 @@ async function run(
     Object.entries(extractors).map(async ([k, v]) => {
       switch (k) {
         case "icons": {
-          return emitIcons(options, base, v as any, await assets.icons);
+          return Extractors.icons(options, base, v as any, await assets.icons);
         }
         case "assets": {
-          return emitImages(options, base, v as any, await assets.images);
+          return Extractors.images(
+            options,
+            base,
+            v as any,
+            await assets.images
+          );
         }
         case "colors": {
-          return emitColors(options, base, v as any, await assets.colors);
+          return Extractors.colors(
+            options,
+            base,
+            v as any,
+            await assets.colors
+          );
         }
       }
+
+      console.log(`Unknown extractor: ${k}`);
     })
   );
-}
-
-async function emitIcons(
-  { verbose }: Options,
-  base: string,
-  { output }: { output: string },
-  icons: Array<Icon>
-) {
-  const allSizes = [...new Set(icons.map((x) => x.size))].sort(
-    (a, b) => +a - +b
-  );
-  const groups = groupBy((x) => x.name, icons);
-  const names = [...groups.keys()].sort();
-
-  /*
-   * Generate the files, everything in parallel.
-   */
-  await mkdirp(path.join(base, output));
-  await Promise.all([
-    /*
-     * … individual icon modules
-     */
-    ...[...groups.entries()].map(writeIconModule(path.join(base, output))),
-
-    /*
-     * … index file which re-exports all icons.
-     */
-    generate(path.join(base, output, "index.ts"), async (write) => {
-      for (const name of names) {
-        await write(`export * from "./${name}"\n`);
-      }
-    }),
-
-    /*
-     * … descriptors for the documentation.
-     */
-    generate(path.join(base, output, "descriptors.ts"), async (write) => {
-      for (const name of names) {
-        await write(`import { __descriptor_${name} } from "./${name}"\n`);
-      }
-
-      await write(`\n`);
-      await write(`export type Size = ${allSizes.join(" | ")}\n`);
-      await write(
-        `export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`
-      );
-      await write(`\n`);
-      await write(
-        `export const descriptors = [${names.map(
-          (name) => `__descriptor_${name}`
-        )}] as const`,
-        { prettier: {} }
-      );
-    }),
-  ]);
-
-  if (verbose) {
-    /*
-     * Print statistics to stdout.
-     */
-    console.log("");
-    console.log(
-      textTable([
-        ["", ...allSizes],
-        [],
-        ...names.map((name, i) => {
-          const symbol =
-            i === 0
-              ? names.length === 1
-                ? "─"
-                : "┌"
-              : i === names.length - 1
-              ? "└"
-              : "├";
-
-          const instances = groups.get(name) || [];
-          const sizes = allSizes.map((x) =>
-            instances.some((i) => i.size === x)
-              ? "*".padStart(2)
-              : "".padStart(2)
-          );
-
-          return [`${symbol} ${name.padEnd(10)}`, ...sizes];
-        }),
-      ])
-    );
-    console.log("");
-  }
-}
-
-async function emitImages(
-  {}: Options,
-  base: string,
-  { output }: { output: string },
-  images: Array<Image>
-) {
-  await mkdirp(path.join(base, output));
-
-  for (const image of images) {
-    await mkdirp(path.join(base, output, path.dirname(image.name)));
-
-    if ("svg" in image) {
-      const stream = fs.createWriteStream(
-        path.join(base, output, `${image.name}.svg`)
-      );
-      stream.write(image.svg);
-      await new Promise((resolve) => stream.end(resolve));
-    } else if ("buffer" in image) {
-      const stream = fs.createWriteStream(
-        path.join(base, output, `${image.name}.webp`)
-      );
-      stream.write(
-        await sharp(image.buffer).webp({ lossless: true }).toBuffer()
-      );
-      await new Promise((resolve) => stream.end(resolve));
-    }
-  }
-}
-
-async function emitColors(
-  {}: Options,
-  base: string,
-  { output }: { output: string },
-  colors: Array<Color>
-) {
-  await mkdirp(path.join(base, path.dirname(output)));
-
-  const obj: any = {};
-  for (const c of colors) {
-    deepSet(obj, c.color, c.name.split("/"));
-  }
-
-  generate(path.join(base, output), async (write) => {
-    for (const [k, v] of Object.entries(obj)) {
-      await write(`export const ${k} = ${JSON.stringify(v)}\n`, {
-        prettier: {},
-      });
-    }
-  });
-
-  function deepSet(obj: any, value: unknown, path: string[]) {
-    let i;
-    for (i = 0; i < path.length - 1; i++) {
-      if (!obj[path[i]]) {
-        obj[path[i]] = {};
-      }
-      obj = obj[path[i]];
-    }
-    obj[path[i]] = value;
-  }
 }
