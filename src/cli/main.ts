@@ -12,33 +12,30 @@ import YAML from "yaml";
 
 interface Options {
   verbose: boolean;
-  config: string;
   figmaToken?: string;
 }
 
-export async function main(options: Options): Promise<void> {
-  if (options.config) {
-    const base = path.dirname(options.config);
-    const raw = YAML.parse(fs.readFileSync(options.config, "utf-8"));
-    await pipeable.pipe(
-      Config.decode(raw),
-      either.fold(
-        async (err) => {
-          console.log(err);
-          process.exit(1);
-        },
-        async (config) => {
-          for (const source of config.sources) {
-            await run(
-              { figmaToken: process.env.FIGMA_TOKEN, ...options },
-              base,
-              source
-            );
-          }
+export async function main(config: string, options: Options): Promise<void> {
+  const base = path.dirname(config);
+  const raw = YAML.parse(fs.readFileSync(config, "utf-8"));
+  await pipeable.pipe(
+    Config.decode(raw),
+    either.fold(
+      async (err) => {
+        console.log(err);
+        process.exit(1);
+      },
+      async (config) => {
+        for (const source of config.sources) {
+          await run(
+            { figmaToken: process.env.FIGMA_TOKEN, ...options },
+            base,
+            source
+          );
         }
-      )
-    );
-  }
+      }
+    )
+  );
 }
 
 async function run(
