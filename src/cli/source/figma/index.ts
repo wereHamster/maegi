@@ -149,8 +149,18 @@ export async function loadAssets(
   const colors = async (): Promise<Array<Color>> => {
     const styles = (await file).styles;
 
-    const rgbToHex = (r: number, g: number, b: number) =>
-      "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    const rgbToHex = (r: number, g: number, b: number, a: number) => {
+      if (a === 1) {
+        return "#" + ((r << 16) + (g << 8) + b).toString(16).padStart(6, "0");
+      } else {
+        return (
+          "#" +
+          ((r << 24) + (g << 16) + (b << 8) + Math.round(a * 255))
+            .toString(16)
+            .padStart(8, "0")
+        );
+      }
+    };
 
     const colors: Array<Color> = [];
 
@@ -159,13 +169,16 @@ export async function loadAssets(
         if (node.styles && node.styles.fill) {
           const style = styles[node.styles.fill];
           if (style) {
-            const { r, g, b } = node.fills[0].color;
+            const fill = node.fills[0];
+            const { r, g, b } = fill.color;
+            // console.log(style.name, fill);
             colors.push({
               name: style.name,
               color: rgbToHex(
                 Math.round(r * 255),
                 Math.round(g * 255),
-                Math.round(b * 255)
+                Math.round(b * 255),
+                fill.opacity || 1
               ),
             });
           }

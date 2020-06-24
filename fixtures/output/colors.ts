@@ -32,5 +32,5 @@ export const green = {
 
 export const primary = { main: "#38a585" } as const;
 
-export const text = "#000000" as const;
+export const text = { opaque: "#000000", "50A": "#00000080" } as const;
 
