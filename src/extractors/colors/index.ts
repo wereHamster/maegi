@@ -39,7 +39,7 @@ export default async function (
 
   const obj: any = {};
   for (const c of colors) {
-    deepSet(obj, c.color, c.name.split("/"));
+    deepSet(obj, c.color, c.name.split("/").map(camelize));
   }
 
   generate(path.join(base, output), async (write) => {
@@ -51,9 +51,12 @@ export default async function (
     );
 
     for (const [k, v] of sorted) {
-      await write(`export const ${k} = ${JSON.stringify(v)} as const\n`, {
-        prettier: {},
-      });
+      await write(
+        `export const ${camelize(k)} = ${JSON.stringify(v)} as const\n`,
+        {
+          prettier: {},
+        }
+      );
       await write("\n");
     }
   });
@@ -68,4 +71,13 @@ export default async function (
     }
     obj[path[i]] = value;
   }
+}
+
+function camelize(str: string) {
+  return str
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    })
+    .replace(/\s+/g, "");
 }
