@@ -2,7 +2,7 @@ import mkdirp from "mkdirp";
 import * as path from "path";
 import { Color, generate } from "../../cli/shared";
 import * as t from "io-ts";
-import { either, pipeable } from "fp-ts";
+import { array, either, ord, pipeable } from "fp-ts";
 
 interface Env {
   verbose: boolean;
@@ -43,7 +43,14 @@ export default async function (
   }
 
   generate(path.join(base, output), async (write) => {
-    for (const [k, v] of Object.entries(obj)) {
+    const sorted = pipeable.pipe(
+      Object.entries(obj),
+      array.sortBy([
+        ord.contramap<string, [string, unknown]>((x) => x[0])(ord.ordString),
+      ])
+    );
+
+    for (const [k, v] of sorted) {
       await write(`export const ${k} = ${JSON.stringify(v)} as const\n`, {
         prettier: {},
       });
