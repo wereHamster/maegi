@@ -44,9 +44,10 @@ export default async function (
 
   generate(path.join(base, output), async (write) => {
     for (const [k, v] of Object.entries(obj)) {
-      await write(`export const ${k} = ${JSON.stringify(v)}\n`, {
+      await write(`export const ${k} = ${JSON.stringify(v)} as const\n`, {
         prettier: {},
       });
+      await write("\n");
     }
   });
 

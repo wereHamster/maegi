@@ -13,7 +13,8 @@ export const green = {
   "700": "#00533e",
   "800": "#003a2c",
   "900": "#00231b",
-};
+} as const;
+
 export const gray = {
   "50": "#f8f8f8",
   "100": "#e3e3e3",
@@ -25,5 +26,7 @@ export const gray = {
   "700": "#464646",
   "800": "#303030",
   "900": "#1b1b1b",
-};
-export const primary = { main: "#38a585" };
+} as const;
+
+export const primary = { main: "#38a585" } as const;
+
