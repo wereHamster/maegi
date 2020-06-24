@@ -48,7 +48,7 @@ export async function loadAssets(
     return json.nodes[id].document.children as any[];
   })();
 
-  const icons = (async (): Promise<Array<Icon>> => {
+  const icons = async (): Promise<Array<Icon>> => {
     const ids = (await nodes).flatMap((n) =>
       parseIconName(n.name) ? [n.id] : []
     );
@@ -71,9 +71,9 @@ export async function loadAssets(
         return { src, name, size };
       })
     );
-  })();
+  };
 
-  const images = (async (): Promise<Array<Image>> => {
+  const images = async (): Promise<Array<Image>> => {
     const sources = (await nodes).flatMap(
       (n: { id: string; name: string; exportSettings: any[] }) => {
         if (!n.name.match(/ic_/) && n.exportSettings) {
@@ -144,9 +144,9 @@ export async function loadAssets(
         })
       )
     ).flat();
-  })();
+  };
 
-  const colors = (async (): Promise<Array<Color>> => {
+  const colors = async (): Promise<Array<Color>> => {
     const styles = (await file).styles;
 
     const rgbToHex = (r: number, g: number, b: number) =>
@@ -177,25 +177,22 @@ export async function loadAssets(
       }
     })(await nodes);
 
-    return colors.map((c) => ({
-      name: c.name,
-      color: c.color,
-    }));
-  })();
+    return colors;
+  };
 
   return {
     ...emptyAssets,
 
     get icons() {
-      return icons;
+      return icons();
     },
 
     get images() {
-      return images;
+      return images();
     },
 
     get colors() {
-      return colors;
+      return colors();
     },
   };
 }
