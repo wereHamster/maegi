@@ -1,17 +1,40 @@
 import mkdirp from "mkdirp";
 import * as path from "path";
 import { Color, generate } from "../../cli/shared";
+import * as t from "io-ts";
+import { either, pipeable } from "fp-ts";
 
-interface Options {
+interface Env {
   verbose: boolean;
 }
 
+const Options = t.type({
+  output: t.string,
+});
+type Options = t.TypeOf<typeof Options>;
+
 export default async function (
-  {}: Options,
+  {}: Env,
   base: string,
-  { output }: { output: string },
+  rawOptions: unknown,
   colors: Array<Color>
 ) {
+  const options = pipeable.pipe(
+    Options.decode(rawOptions),
+    either.fold(
+      (err) => {
+        console.log("Could not parse extractor options");
+        console.log(err);
+        process.exit(1);
+      },
+      (config) => {
+        return config;
+      }
+    )
+  );
+
+  const { output } = options;
+
   await mkdirp(path.join(base, path.dirname(output)));
 
   const obj: any = {};

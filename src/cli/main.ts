@@ -73,12 +73,7 @@ async function run(
           );
         }
         case "colors": {
-          return Extractors.colors(
-            options,
-            base,
-            v as any,
-            await assets.colors
-          );
+          return Extractors.colors(options, base, v, await assets.colors);
         }
       }
 
