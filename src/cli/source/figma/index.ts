@@ -6,6 +6,7 @@ import {
   parseIconName,
   Color,
   emptyAssets,
+  TextStyle,
 } from "../../shared";
 import { groupBy } from "../../stdlib/groupBy";
 
@@ -193,6 +194,40 @@ export async function loadAssets(
     return colors;
   };
 
+  const textStyles = async (): Promise<Array<TextStyle>> => {
+    const styles = (await file).styles;
+
+    const textStyles: Array<TextStyle> = [];
+
+    (function go(nodes: any) {
+      for (const node of nodes) {
+        if (node.styles && node.styles.text) {
+          const style = styles[node.styles.text];
+          if (style) {
+            // console.log(style.name, node.style);
+            textStyles.push({
+              name: style.name,
+              style: {
+                fontFamily: node.style.fontFamily,
+                fontWeight: node.style.fontWeight,
+                fontSize: node.style.fontSize,
+                letterSpacing: node.style.letterSpacing,
+                lineHeightPx: node.style.lineHeightPx,
+                opentypeFlags: node.style.opentypeFlags,
+              },
+            });
+          }
+        }
+
+        if (node.children) {
+          go(node.children);
+        }
+      }
+    })(await nodes);
+
+    return textStyles;
+  };
+
   return {
     ...emptyAssets,
 
@@ -206,6 +241,10 @@ export async function loadAssets(
 
     get colors() {
       return colors();
+    },
+
+    get textStyles() {
+      return textStyles();
     },
   };
 }

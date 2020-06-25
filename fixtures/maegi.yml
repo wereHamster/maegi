@@ -8,3 +8,7 @@ sources:
     extractors:
       colors:
         output: output/colors.ts
+  - source: figma://0FenYNPAo5wV7cmYPELaUE/204:2
+    extractors:
+      typography:
+        output: output/typography.ts

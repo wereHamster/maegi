@@ -75,6 +75,14 @@ async function run(
         case "colors": {
           return Extractors.colors(options, base, v, await assets.colors);
         }
+        case "typography": {
+          return Extractors.typography(
+            options,
+            base,
+            v,
+            await assets.textStyles
+          );
+        }
       }
 
       console.log(`Unknown extractor: ${k}`);
