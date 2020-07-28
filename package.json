@@ -4,7 +4,7 @@
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-typescript": "^7.10.4",
-    "@octokit/graphql": "^4.5.0",
+    "@octokit/graphql": "^4.5.2",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@svgr/core": "^5.4.0",
