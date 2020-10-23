@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "outDir": "."
+  },
+  "files": ["../../src/ambient.d.ts", "../../src/core/index.ts"]
+}

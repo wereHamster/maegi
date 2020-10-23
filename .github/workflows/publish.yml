@@ -17,6 +17,7 @@ jobs:
 
       - run: yarn --frozen-lockfile
       - run: yarn tsc --build
+      - run: yarn tsc --build packages/core/tsconfig.json
       - run: yarn rollup -c rollup.config.js
       - run: ./scripts/publish
         env:

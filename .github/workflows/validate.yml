@@ -33,6 +33,9 @@ jobs:
       - name: TypeScript
         run: yarn tsc --build
 
+      - name: TypeScript
+        run: yarn tsc --build packages/core/tsconfig.json
+
       - name: Build packages
         run: yarn rollup -c rollup.config.js
 
