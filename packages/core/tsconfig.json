@@ -4,6 +4,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "declaration": true,
     "outDir": "."
   },
   "files": ["../../src/ambient.d.ts", "../../src/core/index.ts"]
