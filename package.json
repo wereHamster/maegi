@@ -17,7 +17,7 @@
     "@types/sharp": "^0.26.0",
     "@types/text-table": "^0.2.1",
     "builtin-modules": "^3.1.0",
-    "commander": "^6.1.0",
+    "commander": "^6.2.0",
     "fp-ts": "^2.8.4",
     "io-ts": "^2.2.11",
     "mkdirp": "^1.0.4",
