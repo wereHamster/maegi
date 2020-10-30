@@ -1090,10 +1090,10 @@ ini@~1.3.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
 
-io-ts@^2.2.11:
-  version "2.2.11"
-  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.11.tgz#968a02f57b740fd422c8f9cf7ee99187854636f9"
-  integrity sha512-lGxyPvZNhmo1U1Hy0ovjRtXljG6F59R3bZErK9XjiIQPlt4nuzbDNSwvalXvS7Z8iSZhx2S5GpNz5tVhpnDf6w==
+io-ts@^2.2.12:
+  version "2.2.12"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.12.tgz#b840f2da4c2a6c8a4d8ab48122914672bfb22bab"
+  integrity sha512-pZh43E3xs1RUmv3voC58Mbb6Ihjo3UdDU6WWi578Zpe2BxVue1SlSQCioSymZxk9HoXa370nSfFzp5LrLA2F8g==
 
 is-arrayish@^0.2.1:
   version "0.2.1"

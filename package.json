@@ -19,7 +19,7 @@
     "builtin-modules": "^3.1.0",
     "commander": "^6.2.0",
     "fp-ts": "^2.8.5",
-    "io-ts": "^2.2.11",
+    "io-ts": "^2.2.12",
     "mkdirp": "^1.0.4",
     "node-fetch": "^2.6.1",
     "prettier": "^2.1.2",
