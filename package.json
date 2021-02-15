@@ -6,7 +6,7 @@
     "@babel/preset-typescript": "^7.12.7",
     "@octokit/graphql": "^4.5.7",
     "@rollup/plugin-commonjs": "^11.1.0",
-    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
     "@svgr/core": "^5.5.0",
     "@svgr/plugin-svgo": "^5.5.0",
     "@types/mkdirp": "^1.0.0",
