@@ -16,7 +16,7 @@
     "@types/react": "^17.0.0",
     "@types/sharp": "^0.26.1",
     "@types/text-table": "^0.2.1",
-    "builtin-modules": "^3.1.0",
+    "builtin-modules": "^3.2.0",
     "commander": "^6.2.0",
     "fp-ts": "^2.9.3",
     "io-ts": "^2.2.13",
