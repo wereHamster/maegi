@@ -45,7 +45,7 @@ export async function loadAssets(
     const json = await fetch(
       `https://api.figma.com/v1/files/${key}/nodes?ids=${id}`,
       fetchOptions
-    ).then((res) => res.json());
+    ).then((res) => res.json() as any);
     return json.nodes[id].document.children as any[];
   })();
 
@@ -60,7 +60,7 @@ export async function loadAssets(
     const { images } = await fetch(
       `https://api.figma.com/v1/images/${key}?ids=${ids.join(",")}&format=svg`,
       fetchOptions
-    ).then((res) => res.json());
+    ).then((res) => res.json() as any);
 
     return await Promise.all(
       Object.keys(images).map(async (k) => {
@@ -111,7 +111,7 @@ export async function loadAssets(
           const { images } = await fetch(
             `https://api.figma.com/v1/images/${key}?ids=${ids}&format=${format.toLowerCase()}&scale=${scale}`,
             fetchOptions
-          ).then((res) => res.json());
+          ).then((res) => res.json() as any);
 
           return Promise.all(
             sources
@@ -148,7 +148,7 @@ export async function loadAssets(
   };
 
   const colors = async (): Promise<Array<Color>> => {
-    const styles = (await file).styles;
+    const styles = ((await file) as any).styles;
 
     const rgbToHex = (r: number, g: number, b: number, a: number) => {
       if (a === 1) {
@@ -195,7 +195,7 @@ export async function loadAssets(
   };
 
   const textStyles = async (): Promise<Array<TextStyle>> => {
-    const styles = (await file).styles;
+    const styles = ((await file) as any).styles;
 
     const textStyles: Array<TextStyle> = [];
 
