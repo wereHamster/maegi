@@ -13,7 +13,7 @@
     "@types/node": "^16.10.3",
     "@types/node-fetch": "^3.0.3",
     "@types/prettier": "^2.4.1",
-    "@types/react": "^17.0.27",
+    "@types/react": "^17.0.32",
     "@types/sharp": "^0.29.2",
     "@types/text-table": "^0.2.2",
     "builtin-modules": "^3.2.0",
