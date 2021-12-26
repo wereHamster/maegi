@@ -100,24 +100,25 @@ export function writeIconModule(base: string) {
  * Convert an Icon into React code.
  */
 export async function iconCode({ name, size, src }: Icon): Promise<string> {
-  const options = {
-    template({ template }: any, _: any, { componentName, jsx }: any) {
-      return template.smart({ plugins: ["typescript"] })
-        .ast`export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});`;
+  const options: svgr.Config = {
+    template({ componentName, jsx }, { tpl }) {
+      return tpl`
+        export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});
+      `;
     },
     plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
     svgoConfig: {
       multipass: true,
       plugins: [
-        { removeViewBox: false },
-        { sortAttrs: true },
-        { convertColors: { currentColor: true } },
-        { removeAttrs: { attrs: "(xmlns.*)" } },
+        { name: "removeViewBox", active: false },
+        { name: "sortAttrs", active: true },
+        { name: "convertColors", params: { currentColor: true } },
+        { name: "removeAttrs", params: { attrs: "(xmlns.*)" } },
       ],
     },
   };
 
-  return svgr.default(src, options, {
+  return svgr.transform(src, options, {
     componentName: `${name}${size}`,
   });
 }
