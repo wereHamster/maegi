@@ -7,7 +7,7 @@
     "@octokit/graphql": "^4.8.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.1",
-    "@svgr/core": "^5.5.0",
+    "@svgr/core": "^6.1.2",
     "@svgr/plugin-svgo": "^5.5.0",
     "@types/mkdirp": "^1.0.2",
     "@types/node": "^17.0.4",
