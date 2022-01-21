@@ -31,7 +31,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "sharp": "^0.29.3",
     "text-table": "^0.2.0",
-    "typescript": "^4.5.4",
+    "typescript": "^4.5.5",
     "yaml": "^1.10.2"
   }
 }
