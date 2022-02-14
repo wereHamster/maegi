@@ -559,10 +559,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/svgo@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@types/svgo/-/svgo-2.6.0.tgz#f0c50eed286422f63b4e3346d8a309b0ea67d58a"
-  integrity sha512-VSdhb3KTOglle1SLQD4+TB6ezj/MS3rN98gOUkXzbTUhG8VjFKHXN3OVgEFlTnW5fYBxt+lzZlD3PFqkwMj36Q==
+"@types/svgo@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@types/svgo/-/svgo-2.6.2.tgz#97d8be0c50ff0562ed7522ba840149aee1c970e3"
+  integrity sha512-m1SqMc/EDAZ8v0BBX+NmlYytUXtvrMD2/J9LICwnMvAuJwb0GSmACU3XPvcORqE7ghEJA4Mk6NYzpwhQI/biPw==
   dependencies:
     "@types/node" "*"
 
