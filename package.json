@@ -23,7 +23,7 @@
     "fp-ts": "^2.11.5",
     "io-ts": "^2.2.16",
     "mkdirp": "^1.0.4",
-    "node-fetch": "^3.1.0",
+    "node-fetch": "^3.2.2",
     "prettier": "^2.5.1",
     "rollup": "^2.62.0",
     "rollup-plugin-babel": "^4.4.0",
