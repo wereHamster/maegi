@@ -18,7 +18,7 @@
     "@types/sharp": "^0.29.5",
     "@types/svgo": "^2.6.0",
     "@types/text-table": "^0.2.2",
-    "builtin-modules": "^3.2.0",
+    "builtin-modules": "^3.3.0",
     "commander": "^8.3.0",
     "fp-ts": "^2.12.1",
     "io-ts": "^2.2.16",
