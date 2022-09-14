@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@babel/core": "^7.18.2",
+    "@babel/core": "^7.19.1",
     "@babel/preset-typescript": "^7.17.12",
     "@octokit/graphql": "^4.8.0",
     "@rollup/plugin-commonjs": "^22.0.0",
