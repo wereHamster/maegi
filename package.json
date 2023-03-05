@@ -21,7 +21,7 @@
     "builtin-modules": "^3.3.0",
     "commander": "^8.3.0",
     "fp-ts": "^2.12.1",
-    "io-ts": "^2.2.16",
+    "io-ts": "^2.2.20",
     "mkdirp": "^2.1.5",
     "node-fetch": "^3.2.5",
     "prettier": "^2.8.4",
