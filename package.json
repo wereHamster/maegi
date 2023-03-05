@@ -5,7 +5,7 @@
     "@babel/core": "^7.21.0",
     "@babel/preset-typescript": "^7.21.0",
     "@octokit/graphql": "^4.8.0",
-    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@svgr/core": "^6.2.1",
     "@svgr/plugin-svgo": "^6.2.0",
