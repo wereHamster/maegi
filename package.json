@@ -20,7 +20,7 @@
     "@types/text-table": "^0.2.2",
     "builtin-modules": "^3.3.0",
     "commander": "^8.3.0",
-    "fp-ts": "^2.12.1",
+    "fp-ts": "^2.13.1",
     "io-ts": "^2.2.20",
     "mkdirp": "^2.1.5",
     "node-fetch": "^3.2.5",
