@@ -15,7 +15,7 @@
     "@types/node-fetch": "^3.0.3",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",
-    "@types/sharp": "^0.29.5",
+    "@types/sharp": "^0.31.1",
     "@types/svgo": "^2.6.3",
     "@types/text-table": "^0.2.2",
     "builtin-modules": "^3.3.0",
