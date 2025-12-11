@@ -39,8 +39,8 @@ importers:
         specifier: ^18.14.5
         version: 18.14.5
       '@types/prettier':
-        specifier: ^2.7.2
-        version: 2.7.2
+        specifier: ^3.0.0
+        version: 3.0.0
       '@types/react':
         specifier: ^18.0.28
         version: 18.0.28
@@ -69,8 +69,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       prettier:
-        specifier: ^2.8.4
-        version: 2.8.4
+        specifier: ^3.7.3
+        version: 3.7.3
       rollup:
         specifier: ^2.79.1
         version: 2.79.1
@@ -105,8 +105,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       prettier:
-        specifier: ^2.4.1
-        version: 2.8.4
+        specifier: ^3.7.3
+        version: 3.7.3
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -123,8 +123,8 @@ importers:
         specifier: ^5.4.0
         version: 5.5.0
       prettier:
-        specifier: ^2.0.4
-        version: 2.8.4
+        specifier: ^3.7.3
+        version: 3.7.3
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -663,8 +663,9 @@ packages:
   '@types/parse-json@4.0.0':
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
 
-  '@types/prettier@2.7.2':
-    resolution: {integrity: sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg==}
+  '@types/prettier@3.0.0':
+    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
+    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
 
   '@types/prop-types@15.7.3':
     resolution: {integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==}
@@ -1393,9 +1394,9 @@ packages:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
 
-  prettier@2.8.4:
-    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
-    engines: {node: '>=10.13.0'}
+  prettier@3.7.3:
+    resolution: {integrity: sha512-QgODejq9K3OzoBbuyobZlUhznP5SKwPqp+6Q6xw6o8gnhr4O85L2U915iM2IDcfF2NPXVaM9zlo9tdwipnYwzg==}
+    engines: {node: '>=14'}
     hasBin: true
 
   pump@3.0.0:
@@ -1406,6 +1407,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   randombytes@2.1.0:
@@ -2266,7 +2268,9 @@ snapshots:
 
   '@types/parse-json@4.0.0': {}
 
-  '@types/prettier@2.7.2': {}
+  '@types/prettier@3.0.0':
+    dependencies:
+      prettier: 3.7.3
 
   '@types/prop-types@15.7.3': {}
 
@@ -3066,7 +3070,7 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  prettier@2.8.4: {}
+  prettier@3.7.3: {}
 
   pump@3.0.0:
     dependencies:
