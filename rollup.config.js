@@ -2,13 +2,12 @@ import * as fs from "node:fs";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import babel from "@rollup/plugin-babel";
+import externals from "rollup-plugin-node-externals";
 import terser from "@rollup/plugin-terser";
 import builtinModules from "builtin-modules";
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
-// Reads dependencies from a package's package.json to mark them as external
-// For the CLI package, this includes only 'sharp' (which has native code and should not be bundled)
 function externalFor(pkg) {
   const packageJson = JSON.parse(fs.readFileSync(`packages/${pkg}/package.json`, "utf8"));
 
@@ -27,6 +26,7 @@ export default [
       inlineDynamicImports: true,
     },
     plugins: [
+      externals(),
       resolve({ extensions }),
       commonjs(),
       terser(),
