@@ -110,10 +110,24 @@ export async function iconCode({ name, size, src }: Icon): Promise<string> {
     svgoConfig: {
       multipass: true,
       plugins: [
-        { name: "removeViewBox", active: false },
-        { name: "sortAttrs", active: true },
-        { name: "convertColors", params: { currentColor: true } },
-        { name: "removeAttrs", params: { attrs: "(xmlns.*)" } },
+        {
+          name: "preset-default",
+          params: {
+            overrides: {
+              removeViewBox: false,
+            },
+          },
+        },
+
+        "sortAttrs",
+        {
+          name: "convertColors",
+          params: { currentColor: true },
+        },
+        {
+          name: "removeAttrs",
+          params: { attrs: "(xmlns.*)" },
+        },
       ],
     },
   };
