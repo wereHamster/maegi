@@ -4,11 +4,17 @@ sources:
     extractors:
       icons:
         output: output
-  - source: figma://0FenYNPAo5wV7cmYPELaUE/0:1
-    extractors:
-      colors:
-        output: output/colors.ts
-  - source: figma://0FenYNPAo5wV7cmYPELaUE/204:2
-    extractors:
-      typography:
-        output: output/typography.ts
+
+  # Figma rate limits suck big time!
+  #
+  # The endpoints used in the figma source only allow 6 requests/month
+  # (on the starter plan).
+
+  # - source: figma://0FenYNPAo5wV7cmYPELaUE/0:1
+  #   extractors:
+  #     colors:
+  #       output: output/colors.ts
+  # - source: figma://0FenYNPAo5wV7cmYPELaUE/204:2
+  #   extractors:
+  #     typography:
+  #       output: output/typography.ts
