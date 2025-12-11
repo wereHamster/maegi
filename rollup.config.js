@@ -7,6 +7,8 @@ import builtinModules from "builtin-modules";
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
+// Reads dependencies from a package's package.json to mark them as external
+// For the CLI package, this includes only 'sharp' (which has native code and should not be bundled)
 function externalFor(pkg) {
   const packageJson = JSON.parse(fs.readFileSync(`packages/${pkg}/package.json`, "utf8"));
 
