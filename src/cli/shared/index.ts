@@ -1,6 +1,6 @@
 import * as svgr from "@svgr/core";
 import * as fs from "fs";
-import mkdirp from "mkdirp";
+import { mkdirp } from "mkdirp";
 import * as path from "path";
 import prettier from "prettier";
 import { Icon } from "./types";

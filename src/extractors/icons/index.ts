@@ -1,4 +1,4 @@
-import mkdirp from "mkdirp";
+import { mkdirp } from "mkdirp";
 import * as path from "path";
 import textTable from "text-table";
 import { generate, Icon, writeIconModule } from "../../cli/shared";

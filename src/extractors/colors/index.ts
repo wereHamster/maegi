@@ -1,4 +1,4 @@
-import mkdirp from "mkdirp";
+import { mkdirp } from "mkdirp";
 import * as path from "path";
 import { Color, generate } from "../../cli/shared";
 import * as t from "io-ts";
