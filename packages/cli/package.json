@@ -10,5 +10,10 @@
   },
   "bin": {
     "maegi": "./bin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wereHamster/maegi.git",
+    "directory": "packages/cli"
   }
 }
