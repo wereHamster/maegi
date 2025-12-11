@@ -15,7 +15,7 @@
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",
     "@types/sharp": "^0.29.5",
-    "@types/svgo": "^2.6.3",
+    "@types/svgo": "^3.0.0",
     "@types/text-table": "^0.2.2",
     "builtin-modules": "^3.3.0",
     "commander": "^8.3.0",
