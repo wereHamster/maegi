@@ -1,10 +1,21 @@
+import * as fs from "node:fs";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import babel from "@rollup/plugin-babel";
 import externals from "rollup-plugin-node-externals";
 import terser from "@rollup/plugin-terser";
+import builtinModules from "builtin-modules";
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
+
+function externalFor(pkg) {
+  const packageJson = JSON.parse(fs.readFileSync(`packages/${pkg}/package.json`, "utf8"));
+
+  return [
+    ...Object.keys(packageJson.dependencies || {}),
+    ...Object.keys(packageJson.peerDependencies || {}),
+  ];
+}
 
 export default [
   {
@@ -25,8 +36,8 @@ export default [
       }),
     ],
     external: [
-      ...require("builtin-modules"),
-      ...Object.keys(require("./packages/cli/package.json").dependencies),
+      ...builtinModules,
+      ...externalFor("cli"),
     ],
   },
 ];
