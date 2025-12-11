@@ -93,8 +93,8 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
       yaml:
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.8.2
+        version: 2.8.2
 
   packages/cli:
     dependencies:
@@ -111,8 +111,8 @@ importers:
         specifier: ^0.34.5
         version: 0.34.5
       yaml:
-        specifier: ^1.10.2
-        version: 1.10.2
+        specifier: ^2.8.2
+        version: 2.8.2
 
   packages/core:
     dependencies:
@@ -129,8 +129,8 @@ importers:
         specifier: ^0.34.5
         version: 0.34.5
       yaml:
-        specifier: ^1.9.2
-        version: 1.10.0
+        specifier: ^2.8.2
+        version: 2.8.2
 
 packages:
 
@@ -1670,17 +1670,14 @@ packages:
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
 
-  yaml@1.10.0:
-    resolution: {integrity: sha512-yr2icI4glYaNG+KWONODapy2/jDdMSDnrONSjblABjD9B4Z5LgiircSt8m8sRZFNi08kG9Sm0uSHtEmP3zaEGg==}
-    engines: {node: '>= 6'}
-
   yaml@1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
 
-  yaml@2.2.1:
-    resolution: {integrity: sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==}
-    engines: {node: '>= 14'}
+  yaml@2.8.2:
+    resolution: {integrity: sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
 
 snapshots:
 
@@ -2398,7 +2395,7 @@ snapshots:
       import-fresh: 3.2.2
       parse-json: 5.0.0
       path-type: 4.0.0
-      yaml: 1.10.0
+      yaml: 1.10.2
 
   cross-spawn@6.0.5:
     dependencies:
@@ -3440,8 +3437,6 @@ snapshots:
 
   yallist@3.1.1: {}
 
-  yaml@1.10.0: {}
-
   yaml@1.10.2: {}
 
-  yaml@2.2.1: {}
+  yaml@2.8.2: {}
