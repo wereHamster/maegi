@@ -1,25 +1,17 @@
-name: Publish
+name: Pull Request Verification
 
 on:
-  release:
-    types: [published]
-
-permissions:
-  contents: read
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
 
 jobs:
-  publish:
+  validate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
-        with:
-          registry-url: "https://registry.npmjs.org"
 
       - run: yarn --frozen-lockfile
 
@@ -28,4 +20,8 @@ jobs:
 
       - run: yarn rollup -c rollup.config.js
 
-      - run: ./scripts/publish
+      - run: rm -rf fixtures/output && ./packages/cli/bin fixtures/maegi.yml
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+
+      - run: git diff --exit-code
