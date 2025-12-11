@@ -4,3 +4,5 @@ node_modules/
 
 packages/cli/index.js
 packages/core/
+
+tsconfig.tsbuildinfo
