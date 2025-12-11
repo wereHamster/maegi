@@ -43,7 +43,7 @@ export async function generate(
   await f(async (str, options = {}) => {
     if (options.prettier) {
       stream.write(
-        prettier.format(str, {
+        await prettier.format(str, {
           parser: "typescript",
           ...options.prettier,
         })
