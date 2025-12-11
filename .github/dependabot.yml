@@ -1,7 +1,10 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 999
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 999
+    # Cooldown period: wait 9 days before updating to newly released packages
+    # This provides a stability/security window to catch early issues
+    min-package-age-days: 9
