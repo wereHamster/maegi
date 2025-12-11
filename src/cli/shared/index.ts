@@ -64,18 +64,18 @@ export function writeIconModule(base: string) {
   return async ([name, instances]: [string, Icon[]]) => {
     await mkdirp(path.join(base, name));
     await generate(path.join(base, name, "index.tsx"), async (write) => {
-      write(`import React from "react";\n`);
-      write(`\n`);
+      await write(`import React from "react";\n`);
+      await write(`\n`);
 
       const sortedInstances = [...instances].sort((a, b) => a.size - b.size);
       for (const icon of sortedInstances) {
-        write(`${await iconCode(icon)}`, {
+        await write(`${await iconCode(icon)}`, {
           prettier: { printWidth: Infinity },
         });
-        write(`\n`);
+        await write(`\n`);
       }
 
-      write(
+      await write(
         `export const __descriptor_${name} = {
     name: "${name}",
     instances: [
