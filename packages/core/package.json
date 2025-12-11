@@ -8,5 +8,10 @@
     "prettier": "^3.4.2",
     "sharp": "^0.34.5",
     "yaml": "^2.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wereHamster/maegi.git",
+    "directory": "packages/core"
   }
 }
