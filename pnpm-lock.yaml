@@ -36,8 +36,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@types/node':
-        specifier: ^18.14.5
-        version: 18.14.5
+        specifier: ^24.10.1
+        version: 24.10.1
       '@types/prettier':
         specifier: ^2.7.2
         version: 2.7.2
@@ -657,8 +657,8 @@ packages:
     resolution: {integrity: sha512-c/iUqMymAlxLAyIK3u5SzrwkrkyOdv1XDc91T+b5FsY7Jr6ERhUD19jJHOhPW4GD6tmN6mFEorfSdks525pwdQ==}
     deprecated: This is a stub types definition. mkdirp provides its own type definitions, so you do not need this installed.
 
-  '@types/node@18.14.5':
-    resolution: {integrity: sha512-CRT4tMK/DHYhw1fcCEBwME9CSaZNclxfzVMe7GsO6ULSwsttbj70wSiX6rZdIjGblu93sTJxLdhNIT85KKI7Qw==}
+  '@types/node@24.10.1':
+    resolution: {integrity: sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ==}
 
   '@types/parse-json@4.0.0':
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -1406,6 +1406,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   randombytes@2.1.0:
@@ -1629,6 +1630,9 @@ packages:
   unbox-primitive@1.1.0:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
+
+  undici-types@7.16.0:
+    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
   universal-user-agent@5.0.0:
     resolution: {integrity: sha512-B5TPtzZleXyPrUMKCpEHFmVhMN6EhmJYjG5PQna9s7mXeSqGTLap4OpqLl5FCEFUI3UBmllkETwKf/db66Y54Q==}
@@ -2061,7 +2065,7 @@ snapshots:
 
   '@octokit/types@2.14.0':
     dependencies:
-      '@types/node': 18.14.5
+      '@types/node': 24.10.1
 
   '@octokit/types@6.32.0':
     dependencies:
@@ -2262,7 +2266,9 @@ snapshots:
     dependencies:
       mkdirp: 3.0.1
 
-  '@types/node@18.14.5': {}
+  '@types/node@24.10.1':
+    dependencies:
+      undici-types: 7.16.0
 
   '@types/parse-json@4.0.0': {}
 
@@ -2280,17 +2286,17 @@ snapshots:
 
   '@types/resolve@1.17.1':
     dependencies:
-      '@types/node': 18.14.5
+      '@types/node': 24.10.1
 
   '@types/scheduler@0.16.2': {}
 
   '@types/sharp@0.29.5':
     dependencies:
-      '@types/node': 18.14.5
+      '@types/node': 24.10.1
 
   '@types/svgo@2.6.3':
     dependencies:
-      '@types/node': 18.14.5
+      '@types/node': 24.10.1
 
   '@types/text-table@0.2.2': {}
 
@@ -2911,7 +2917,7 @@ snapshots:
 
   jest-worker@26.6.2:
     dependencies:
-      '@types/node': 18.14.5
+      '@types/node': 24.10.1
       merge-stream: 2.0.0
       supports-color: 7.2.0
 
@@ -3391,6 +3397,8 @@ snapshots:
       has-bigints: 1.1.0
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
+
+  undici-types@7.16.0: {}
 
   universal-user-agent@5.0.0:
     dependencies:
