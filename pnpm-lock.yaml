@@ -44,15 +44,9 @@ importers:
       '@types/node':
         specifier: ^24.10.1
         version: 24.10.1
-      '@types/prettier':
-        specifier: ^3.0.0
-        version: 3.0.0
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
-      '@types/sharp':
-        specifier: ^0.32.0
-        version: 0.32.0
       '@types/text-table':
         specifier: ^0.2.5
         version: 0.2.5
@@ -723,19 +717,11 @@ packages:
   '@types/node@24.10.1':
     resolution: {integrity: sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ==}
 
-  '@types/prettier@3.0.0':
-    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
-    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
-
   '@types/react@19.2.7':
     resolution: {integrity: sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
-
-  '@types/sharp@0.32.0':
-    resolution: {integrity: sha512-OOi3kL+FZDnPhVzsfD37J88FNeZh6gQsGcLc95NbeURRGvmSjeXiDcyWzF2o3yh/gQAUn2uhh/e+CPCa5nwAxw==}
-    deprecated: This is a stub types definition. sharp provides its own type definitions, so you do not need this installed.
 
   '@types/text-table@0.2.5':
     resolution: {integrity: sha512-hcZhlNvMkQG/k1vcZ6yHOl6WAYftQ2MLfTHcYRZ2xYZFD8tGVnE3qFV0lj1smQeDSR7/yY0PyuUalauf33bJeA==}
@@ -1683,19 +1669,11 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/prettier@3.0.0':
-    dependencies:
-      prettier: 3.7.3
-
   '@types/react@19.2.7':
     dependencies:
       csstype: 3.2.3
 
   '@types/resolve@1.20.2': {}
-
-  '@types/sharp@0.32.0':
-    dependencies:
-      sharp: 0.34.5
 
   '@types/text-table@0.2.5': {}
 
