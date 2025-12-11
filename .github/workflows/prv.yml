@@ -10,15 +10,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: DeterminateSystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
 
-      - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+      - run: nix run .#nix-develop .#workflow
 
-      - run: yarn --frozen-lockfile
+      - run: ./node_modules/.bin/tsc --build
+      - run: ./node_modules/.bin/tsc --build packages/core/tsconfig.json
 
-      - run: yarn tsc --build
-      - run: yarn tsc --build packages/core/tsconfig.json
-
-      - run: yarn rollup -c rollup.config.js
+      - run: ./node_modules/.bin/rollup -c rollup.config.js
 
       - run: rm -rf fixtures/output && ./packages/cli/bin fixtures/maegi.yml
         env:
