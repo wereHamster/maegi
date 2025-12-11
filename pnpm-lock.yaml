@@ -72,8 +72,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       node-fetch:
-        specifier: ^3.3.0
-        version: 3.3.0
+        specifier: ^3.3.2
+        version: 3.3.2
       prettier:
         specifier: ^2.8.4
         version: 2.8.4
@@ -847,8 +847,8 @@ packages:
   csstype@3.0.2:
     resolution: {integrity: sha512-ofovWglpqoqbfLNOTBNZLSbMuGrblAf1efvvArGKOZMBrIoJeu5UsAipQolkijtyQx5MtAzT/J9IHj/CEY1mJw==}
 
-  data-uri-to-buffer@4.0.0:
-    resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==}
+  data-uri-to-buffer@4.0.1:
+    resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
 
   data-view-buffer@1.0.2:
@@ -986,8 +986,8 @@ packages:
     resolution: {integrity: sha512-adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==}
     engines: {node: '>=6'}
 
-  fetch-blob@3.1.5:
-    resolution: {integrity: sha512-N64ZpKqoLejlrwkIAnb9iLSA3Vx/kjgzpcDhygcqJ2KKjky8nCgUQ+dzXtbrLaWZGZNmNfQTsiQ0weZ1svglHg==}
+  fetch-blob@3.2.0:
+    resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
     engines: {node: ^12.20 || >= 14.13}
 
   find-up@6.2.0:
@@ -1326,12 +1326,17 @@ packages:
     engines: {node: '>=10.5.0'}
     deprecated: Use your platform's native DOMException instead
 
-  node-fetch@2.6.5:
-    resolution: {integrity: sha512-mmlIVHJEu5rnIxgEgez6b9GgWXbkZj5YZ7fx+2r94a2E+Uirsp6HsPTPlomfdHtpt/B0cdKviwkoaM6pyvUOpQ==}
+  node-fetch@2.7.0:
+    resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
     engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
 
-  node-fetch@3.3.0:
-    resolution: {integrity: sha512-BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA==}
+  node-fetch@3.3.2:
+    resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   node-releases@2.0.10:
@@ -1680,8 +1685,8 @@ packages:
   util.promisify@1.0.1:
     resolution: {integrity: sha512-g9JpC/3He3bm38zsLupWryXHoEcS22YHthuPQSJdMy6KNrzIRzWqcsHzD/WUnqe45whVou4VIsPew37DoXWNrA==}
 
-  web-streams-polyfill@3.1.1:
-    resolution: {integrity: sha512-Czi3fG883e96T4DLEPRvufrF2ydhOOW1+1a6c3gNjH2aIh50DNFBdfwh2AKoOf1rXvpvavAoA11Qdq9+BKjE0Q==}
+  web-streams-polyfill@3.3.3:
+    resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
 
   webidl-conversions@3.0.1:
@@ -2077,6 +2082,8 @@ snapshots:
       '@octokit/request': 5.6.2
       '@octokit/types': 6.32.0
       universal-user-agent: 6.0.0
+    transitivePeerDependencies:
+      - encoding
 
   '@octokit/openapi-types@11.0.0': {}
 
@@ -2092,8 +2099,10 @@ snapshots:
       '@octokit/request-error': 2.1.0
       '@octokit/types': 6.32.0
       is-plain-object: 5.0.0
-      node-fetch: 2.6.5
+      node-fetch: 2.7.0
       universal-user-agent: 6.0.0
+    transitivePeerDependencies:
+      - encoding
 
   '@octokit/types@2.14.0':
     dependencies:
@@ -2300,7 +2309,7 @@ snapshots:
 
   '@types/node-fetch@3.0.3':
     dependencies:
-      node-fetch: 3.3.0
+      node-fetch: 3.3.2
 
   '@types/node@18.14.5': {}
 
@@ -2501,7 +2510,7 @@ snapshots:
 
   csstype@3.0.2: {}
 
-  data-uri-to-buffer@4.0.0: {}
+  data-uri-to-buffer@4.0.1: {}
 
   data-view-buffer@1.0.2:
     dependencies:
@@ -2695,10 +2704,10 @@ snapshots:
       signal-exit: 3.0.3
       strip-eof: 1.0.0
 
-  fetch-blob@3.1.5:
+  fetch-blob@3.2.0:
     dependencies:
       node-domexception: 1.0.0
-      web-streams-polyfill: 3.1.1
+      web-streams-polyfill: 3.3.3
 
   find-up@6.2.0:
     dependencies:
@@ -2711,7 +2720,7 @@ snapshots:
 
   formdata-polyfill@4.0.10:
     dependencies:
-      fetch-blob: 3.1.5
+      fetch-blob: 3.2.0
 
   fp-ts@2.13.1: {}
 
@@ -3021,14 +3030,14 @@ snapshots:
 
   node-domexception@1.0.0: {}
 
-  node-fetch@2.6.5:
+  node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
 
-  node-fetch@3.3.0:
+  node-fetch@3.3.2:
     dependencies:
-      data-uri-to-buffer: 4.0.0
-      fetch-blob: 3.1.5
+      data-uri-to-buffer: 4.0.1
+      fetch-blob: 3.2.0
       formdata-polyfill: 4.0.10
 
   node-releases@2.0.10: {}
@@ -3472,7 +3481,7 @@ snapshots:
       has-symbols: 1.1.0
       object.getownpropertydescriptors: 2.1.8
 
-  web-streams-polyfill@3.1.1: {}
+  web-streams-polyfill@3.3.3: {}
 
   webidl-conversions@3.0.1: {}
 
