@@ -122,17 +122,19 @@ export async function loadAssets(
                   return [
                     {
                       SVG: async () => {
+                        const res = await fetch(url);
+
                         return {
                           name,
-                          svg: await fetch(url).then((res) => res.text()),
+                          svg: await res.text(),
                         } as Image;
                       },
                       PNG: async () => {
+                        const res = await fetch(url);
+
                         return {
                           name,
-                          buffer: Buffer.from(
-                            await fetch(url).then((res) => res.arrayBuffer())
-                          ),
+                          buffer: Buffer.from(await res.arrayBuffer()),
                         } as Image;
                       },
                     }[format],
