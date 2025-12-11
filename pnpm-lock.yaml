@@ -95,21 +95,9 @@ importers:
 
   packages/cli:
     dependencies:
-      '@svgr/core':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@5.9.3)
-      '@svgr/plugin-svgo':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
-      prettier:
-        specifier: ^3.4.2
-        version: 3.7.3
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
-      yaml:
-        specifier: ^2.8.2
-        version: 2.8.2
 
   packages/core:
     dependencies:

@@ -2,7 +2,6 @@ import * as fs from "node:fs";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import babel from "@rollup/plugin-babel";
-import externals from "rollup-plugin-node-externals";
 import terser from "@rollup/plugin-terser";
 import builtinModules from "builtin-modules";
 
@@ -26,7 +25,6 @@ export default [
       inlineDynamicImports: true,
     },
     plugins: [
-      externals(),
       resolve({ extensions }),
       commonjs(),
       terser(),

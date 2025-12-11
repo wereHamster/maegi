@@ -1,4 +1,7 @@
 packages:
-  - "packages/*"
+  - packages/*
 
 minimumReleaseAge: 12960
+
+onlyBuiltDependencies:
+  - sharp
