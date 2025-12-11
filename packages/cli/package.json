@@ -6,7 +6,7 @@
     "@svgr/plugin-svgo": "^5.5.0",
     "prettier": "^2.4.1",
     "sharp": "^0.34.5",
-    "yaml": "^1.10.2"
+    "yaml": "^2.8.2"
   },
   "bin": {
     "maegi": "./bin"

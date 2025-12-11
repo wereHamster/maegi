@@ -7,6 +7,6 @@
     "@svgr/plugin-svgo": "^5.4.0",
     "prettier": "^2.0.4",
     "sharp": "^0.34.5",
-    "yaml": "^1.9.2"
+    "yaml": "^2.8.2"
   }
 }
