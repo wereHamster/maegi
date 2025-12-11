@@ -12,13 +12,18 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
-          node-version: "16.x"
+          node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
 
-      - run: yarn --frozen-lockfile
-      - run: yarn tsc --build
-      - run: yarn tsc --build packages/core/tsconfig.json
-      - run: yarn rollup -c rollup.config.js
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm tsc --build
+      - run: pnpm tsc --build packages/core/tsconfig.json
+      - run: pnpm rollup -c rollup.config.js
       - run: ./scripts/publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -16,28 +16,35 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          version: 8
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: TypeScript
-        run: yarn tsc --build
+        run: pnpm tsc --build
 
       - name: TypeScript
-        run: yarn tsc --build packages/core/tsconfig.json
+        run: pnpm tsc --build packages/core/tsconfig.json
 
       - name: Build packages
-        run: yarn rollup -c rollup.config.js
+        run: pnpm rollup -c rollup.config.js
 
       - name: Generate output from iconset fixture
         run: rm -rf fixtures/output && ./packages/cli/bin fixtures/maegi.yml

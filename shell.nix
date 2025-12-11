@@ -1,12 +1,11 @@
 let
   pkgs = import <nixpkgs> {};
 
-  nodejs = pkgs.nodejs-16_x;
-  yarn = pkgs.yarn.override { inherit nodejs; };
+  nodejs = pkgs.nodejs-18_x;
 
 in pkgs.mkShell {
   buildInputs = [
     nodejs
-    yarn
+    pkgs.nodePackages.pnpm
   ];
 }

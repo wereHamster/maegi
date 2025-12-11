@@ -18,7 +18,7 @@ sources:
 Point the `@maegi/cli` tool to the config file and profit:
 
 ```
-npx @maegi/cli path/to/config.yml
+pnpm dlx @maegi/cli path/to/config.yml
 ```
 
 ## Extractors
