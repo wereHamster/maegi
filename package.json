@@ -12,7 +12,7 @@
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
-    "@types/babel__core": "^7.20.0",
+    "@types/babel__core": "^7.20.5",
     "@types/node": "^24.10.1",
     "@types/prettier": "^3.0.0",
     "@types/react": "^19.2.7",
