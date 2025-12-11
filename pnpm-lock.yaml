@@ -54,8 +54,8 @@ importers:
         specifier: ^0.29.5
         version: 0.29.5
       '@types/text-table':
-        specifier: ^0.2.2
-        version: 0.2.2
+        specifier: ^0.2.5
+        version: 0.2.5
       builtin-modules:
         specifier: ^5.0.0
         version: 5.0.0
@@ -736,8 +736,8 @@ packages:
   '@types/sharp@0.29.5':
     resolution: {integrity: sha512-3TC+S3H5RwnJmLYMHrcdfNjz/CaApKmujjY9b6PU/pE6n0qfooi99YqXGWoW8frU9EWYj/XTI35Pzxa+ThAZ5Q==}
 
-  '@types/text-table@0.2.2':
-    resolution: {integrity: sha512-dGoI5Af7To0R2XE8wJuc6vwlavWARsCh3UKJPjWs1YEqGUqfgBI/j/4GX0yf19/DsDPPf0YAXWAp8psNeIehLg==}
+  '@types/text-table@0.2.5':
+    resolution: {integrity: sha512-hcZhlNvMkQG/k1vcZ6yHOl6WAYftQ2MLfTHcYRZ2xYZFD8tGVnE3qFV0lj1smQeDSR7/yY0PyuUalauf33bJeA==}
 
   acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
@@ -1696,7 +1696,7 @@ snapshots:
     dependencies:
       '@types/node': 24.10.1
 
-  '@types/text-table@0.2.2': {}
+  '@types/text-table@0.2.5': {}
 
   acorn@8.15.0: {}
 
