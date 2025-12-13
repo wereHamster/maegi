@@ -66,8 +66,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       prettier:
-        specifier: ^3.7.3
-        version: 3.7.3
+        specifier: ^3.7.4
+        version: 3.7.4
       rollup:
         specifier: ^4.53.3
         version: 4.53.3
@@ -97,7 +97,7 @@ importers:
         version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
       prettier:
         specifier: ^3.4.2
-        version: 3.7.3
+        version: 3.7.4
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -115,7 +115,7 @@ importers:
         version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
       prettier:
         specifier: ^3.4.2
-        version: 3.7.3
+        version: 3.7.4
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -992,8 +992,8 @@ packages:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
 
-  prettier@3.7.3:
-    resolution: {integrity: sha512-QgODejq9K3OzoBbuyobZlUhznP5SKwPqp+6Q6xw6o8gnhr4O85L2U915iM2IDcfF2NPXVaM9zlo9tdwipnYwzg==}
+  prettier@3.7.4:
+    resolution: {integrity: sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -1895,7 +1895,7 @@ snapshots:
 
   picomatch@4.0.3: {}
 
-  prettier@3.7.3: {}
+  prettier@3.7.4: {}
 
   randombytes@2.1.0:
     dependencies:
