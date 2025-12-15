@@ -9,7 +9,7 @@ import type { Icon } from "./types";
 export * from "./types";
 
 export function toCamelCase(x: string) {
-  return ("_" + x.replace(/^ic_/, "")).replace(/^([A-Z])|[\s-_](\w)/g, (_match, p1, p2) =>
+  return `_${x.replace(/^ic_/, "")}`.replace(/^([A-Z])|[\s-_](\w)/g, (_match, p1, p2) =>
     p2 ? p2.toUpperCase() : p1.toLowerCase(),
   );
 }

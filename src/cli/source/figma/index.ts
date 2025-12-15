@@ -54,7 +54,7 @@ export async function loadAssets(options: Options, source: string): Promise<Asse
 
     return await Promise.all(
       Object.keys(images).map(async (k) => {
-        const { name, size } = parseIconName((await nodes).find((n) => n.id === k)!.name)!;
+        const { name, size } = parseIconName((await nodes).find((n) => n.id === k)?.name)!;
         const src = await fetch(images[k]).then((res) => res.text());
 
         return { src, name, size };
@@ -140,9 +140,9 @@ export async function loadAssets(options: Options, source: string): Promise<Asse
 
     const rgbToHex = (r: number, g: number, b: number, a: number) => {
       if (a === 1) {
-        return "#" + ((r << 16) + (g << 8) + b).toString(16).padStart(6, "0");
+        return `#${((r << 16) + (g << 8) + b).toString(16).padStart(6, "0")}`;
       } else {
-        return "#" + ((r << 24) + (g << 16) + (b << 8) + Math.round(a * 255)).toString(16).padStart(8, "0");
+        return `#${((r << 24) + (g << 16) + (b << 8) + Math.round(a * 255)).toString(16).padStart(8, "0")}`;
       }
     };
 
@@ -150,7 +150,7 @@ export async function loadAssets(options: Options, source: string): Promise<Asse
 
     (function go(nodes: any) {
       for (const node of nodes) {
-        if (node.styles && node.styles.fill) {
+        if (node.styles?.fill) {
           const style = styles[node.styles.fill];
           if (style) {
             const fill = node.fills[0];
@@ -179,7 +179,7 @@ export async function loadAssets(options: Options, source: string): Promise<Asse
 
     (function go(nodes: any) {
       for (const node of nodes) {
-        if (node.styles && node.styles.text) {
+        if (node.styles?.text) {
           const style = styles[node.styles.text];
           if (style) {
             // console.log(style.name, node.style);

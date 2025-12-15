@@ -20,7 +20,7 @@ export async function loadAssets(basePath: string, source: string): Promise<Asse
 
         return Promise.all(
           iconNames.map(async ({ id, name, size }) => ({
-            src: await fs.promises.readFile(path.join(dir, id) + ".svg", "utf8"),
+            src: await fs.promises.readFile(`${path.join(dir, id)}.svg`, "utf8"),
             name,
             size,
           })),
