@@ -30,7 +30,7 @@ export function parseIconName(s: string) {
 
 export async function generate(
   filename: string,
-  f: (_: (str: string, options?: any) => Promise<void>) => Promise<void>
+  f: (_: (str: string) => Promise<void>) => Promise<void>
 ): Promise<void> {
   const stream = fs.createWriteStream(filename);
 
@@ -39,7 +39,7 @@ export async function generate(
   stream.write(` */\n`);
   stream.write(`\n`);
 
-  await f(async (str, options = {}) => {
+  await f(async (str) => {
     stream.write(str);
   });
 
