@@ -1,7 +1,7 @@
 import { array, either, ord, pipeable } from "fp-ts";
 import * as t from "io-ts";
 import { mkdirp } from "mkdirp";
-import * as path from "path";
+import * as path from "node:path";
 import { generate, TextStyle } from "../../cli/shared";
 
 interface Env {

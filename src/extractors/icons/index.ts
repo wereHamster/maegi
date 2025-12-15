@@ -1,5 +1,5 @@
 import { mkdirp } from "mkdirp";
-import * as path from "path";
+import * as path from "node:path";
 import textTable from "text-table";
 import { generate, Icon, writeIconModule } from "../../cli/shared";
 import { groupBy } from "../../cli/stdlib/groupBy";
