@@ -11,9 +11,8 @@ interface Env {
 const Options = t.type({
   output: t.string,
 });
-type Options = t.TypeOf<typeof Options>;
 
-export default async function ({}: Env, base: string, rawOptions: unknown, colors: Array<Color>) {
+export default async function (_env: Env, base: string, rawOptions: unknown, colors: Array<Color>) {
   const options = pipeable.pipe(
     Options.decode(rawOptions),
     either.fold(
@@ -50,7 +49,7 @@ export default async function ({}: Env, base: string, rawOptions: unknown, color
   });
 
   function deepSet(obj: any, value: unknown, path: string[]) {
-    let i;
+    let i: number;
     for (i = 0; i < path.length - 1; i++) {
       if (!obj[path[i]]) {
         obj[path[i]] = {};

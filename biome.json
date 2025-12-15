@@ -1,6 +1,15 @@
 {
   "files": {
-    "includes": ["**", "!**/.direnv", "!**/node_modules", "!fixtures/output"]
+    "includes": [
+      "**",
+      "!**/.direnv",
+      "!**/node_modules",
+
+      "!fixtures/output",
+
+      "!packages/cli/index.js",
+      "!packages/core"
+    ]
   },
 
   "formatter": {
@@ -9,6 +18,13 @@
   },
 
   "linter": {
-    "rules": {}
+    "rules": {
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off"
+      }
+    }
   }
 }

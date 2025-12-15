@@ -8,7 +8,7 @@ interface Options {
   verbose: boolean;
 }
 
-export default async function ({}: Options, base: string, { output }: { output: string }, images: Array<Image>) {
+export default async function (_options: Options, base: string, { output }: { output: string }, images: Array<Image>) {
   await mkdirp(path.join(base, output));
 
   for (const image of images) {
