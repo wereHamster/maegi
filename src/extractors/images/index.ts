@@ -1,6 +1,6 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 import { mkdirp } from "mkdirp";
-import * as path from "path";
+import * as path from "node:path";
 import sharp from "sharp";
 import { Image } from "../../cli/shared";
 

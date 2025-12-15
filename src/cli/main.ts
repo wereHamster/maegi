@@ -1,6 +1,6 @@
 import { either, pipeable } from "fp-ts";
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import YAML from "yaml";
 import { Config, Source } from "../config";
 import * as Extractors from "../extractors";
