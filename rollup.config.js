@@ -27,7 +27,7 @@ export default [
     plugins: [
       resolve({ extensions }),
       commonjs(),
-      // terser(),
+      terser(),
       babel({
         extensions,
         presets: ["@babel/preset-typescript"],
