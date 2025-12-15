@@ -1,0 +1,15 @@
+{
+  "files": {
+    "includes": ["**", "!**/.direnv", "!**/node_modules"]
+  },
+
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 4,
+    "lineWidth": 120
+  },
+
+  "linter": {
+    "rules": {}
+  }
+}
