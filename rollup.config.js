@@ -22,7 +22,7 @@ export default [
     input: "src/cli/index.ts",
     output: {
       file: "packages/cli/index.js",
-      format: "commonjs",
+      format: "es",
       inlineDynamicImports: true,
     },
     plugins: [
