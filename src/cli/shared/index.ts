@@ -1,4 +1,6 @@
 import * as svgr from "@svgr/core";
+import svgrPluginSvgo from "@svgr/plugin-svgo";
+import svgrPluginJsx from "@svgr/plugin-jsx";
 import * as fs from "node:fs";
 import { mkdirp } from "mkdirp";
 import * as path from "node:path";
@@ -93,7 +95,7 @@ export async function iconCode({ name, size, src }: Icon): Promise<string> {
         export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});
       `;
     },
-    plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
+    plugins: [svgrPluginSvgo, svgrPluginJsx],
     svgoConfig: {
       multipass: true,
       plugins: [
