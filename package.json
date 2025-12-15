@@ -22,7 +22,6 @@
     "io-ts": "^2.2.22",
     "mkdirp": "^3.0.1",
     "rollup": "^4.53.3",
-    "rollup-plugin-node-externals": "^8.1.2",
     "sharp": "^0.34.5",
     "text-table": "^0.2.0",
     "typescript": "^5.9.3",
