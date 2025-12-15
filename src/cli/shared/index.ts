@@ -2,7 +2,6 @@ import * as svgr from "@svgr/core";
 import * as fs from "fs";
 import { mkdirp } from "mkdirp";
 import * as path from "path";
-import prettier from "prettier";
 import { Icon } from "./types";
 
 export * from "./types";
@@ -31,7 +30,7 @@ export function parseIconName(s: string) {
 
 export async function generate(
   filename: string,
-  f: (_: (str: string, options?: any) => Promise<void>) => Promise<void>
+  f: (_: (str: string) => Promise<void>) => Promise<void>
 ): Promise<void> {
   const stream = fs.createWriteStream(filename);
 
@@ -40,17 +39,8 @@ export async function generate(
   stream.write(` */\n`);
   stream.write(`\n`);
 
-  await f(async (str, options = {}) => {
-    if (options.prettier) {
-      stream.write(
-        await prettier.format(str, {
-          parser: "typescript",
-          ...options.prettier,
-        })
-      );
-    } else {
-      stream.write(str);
-    }
+  await f(async (str) => {
+    stream.write(str);
   });
 
   return new Promise((resolve) => stream.end(resolve));
@@ -69,9 +59,7 @@ export function writeIconModule(base: string) {
 
       const sortedInstances = [...instances].sort((a, b) => a.size - b.size);
       for (const icon of sortedInstances) {
-        await write(`${await iconCode(icon)}`, {
-          prettier: { printWidth: Infinity },
-        });
+        await write(`${await iconCode(icon)}`);
         await write(`\n`);
       }
 
@@ -89,8 +77,7 @@ export function writeIconModule(base: string) {
         .join(",")}
     ]
   } as const;
-  `,
-        { prettier: {} }
+  `
       );
     });
   };

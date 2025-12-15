@@ -5,7 +5,8 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "declaration": true,
-    "outDir": "."
+    "outDir": ".",
+    "skipLibCheck": true
   },
   "files": ["../../src/ambient.d.ts", "../../src/core/index.ts"]
 }

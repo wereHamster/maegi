@@ -52,10 +52,7 @@ export default async function (
 
     for (const [k, v] of sorted) {
       await write(
-        `export const ${camelize(k)} = ${JSON.stringify(v)} as const\n`,
-        {
-          prettier: {},
-        }
+        `export const ${camelize(k)} = ${JSON.stringify(v)} as const\n`
       );
       await write("\n");
     }

@@ -10,9 +10,4 @@ import { __descriptor_Settings } from "./Settings"
 export type Size = 24 | 40 | 48 | 64
 export const enumSize: Size[] = [ 24, 40, 48, 64 ]
 
-export const descriptors = [
-  __descriptor_Check,
-  __descriptor_Letter,
-  __descriptor_Lock,
-  __descriptor_Settings,
-] as const;
+export const descriptors = [__descriptor_Check,__descriptor_Letter,__descriptor_Lock,__descriptor_Settings] as const
