@@ -1,8 +1,8 @@
-import { either, pipeable } from "fp-ts";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { either, pipeable } from "fp-ts";
 import YAML from "yaml";
-import { Config, Source } from "../config";
+import { Config, type Source } from "../config";
 import * as Extractors from "../extractors";
 import { Figma, Local } from "./source";
 
@@ -25,8 +25,8 @@ export async function main(configPath: string, opts: Options): Promise<void> {
       },
       (config) => {
         return config;
-      }
-    )
+      },
+    ),
   );
 
   /*
@@ -39,17 +39,11 @@ export async function main(configPath: string, opts: Options): Promise<void> {
    * one source though.
    */
   await Promise.all(
-    config.sources.map(async (source) =>
-      run({ figmaToken: process.env.FIGMA_TOKEN, ...opts }, basePath, source)
-    )
+    config.sources.map(async (source) => run({ figmaToken: process.env.FIGMA_TOKEN, ...opts }, basePath, source)),
   );
 }
 
-async function run(
-  options: Options,
-  base: string,
-  { source, extractors }: Source
-): Promise<void> {
+async function run(options: Options, base: string, { source, extractors }: Source): Promise<void> {
   const assets = await (() => {
     if (source.startsWith("figma://")) {
       return Figma.loadAssets(options, source);
@@ -65,27 +59,17 @@ async function run(
           return Extractors.icons(options, base, v as any, await assets.icons);
         }
         case "assets": {
-          return Extractors.images(
-            options,
-            base,
-            v as any,
-            await assets.images
-          );
+          return Extractors.images(options, base, v as any, await assets.images);
         }
         case "colors": {
           return Extractors.colors(options, base, v, await assets.colors);
         }
         case "typography": {
-          return Extractors.typography(
-            options,
-            base,
-            v,
-            await assets.textStyles
-          );
+          return Extractors.typography(options, base, v, await assets.textStyles);
         }
       }
 
       console.log(`Unknown extractor: ${k}`);
-    })
+    }),
   );
 }

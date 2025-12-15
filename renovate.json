@@ -9,10 +9,7 @@
   "internalChecksFilter": "strict",
   "packageRules": [
     {
-      "matchFileNames": [
-        "packages/cli/package.json",
-        "packages/core/package.json"
-      ],
+      "matchFileNames": ["packages/cli/package.json", "packages/core/package.json"],
       "rangeStrategy": "update-lockfile"
     },
     {

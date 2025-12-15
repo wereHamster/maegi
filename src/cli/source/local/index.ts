@@ -1,11 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { Assets, parseIconName, emptyAssets } from "../../shared";
+import { type Assets, emptyAssets, parseIconName } from "../../shared";
 
-export async function loadAssets(
-  basePath: string,
-  source: string
-): Promise<Assets> {
+export async function loadAssets(basePath: string, source: string): Promise<Assets> {
   return {
     ...emptyAssets,
 
@@ -23,13 +20,10 @@ export async function loadAssets(
 
         return Promise.all(
           iconNames.map(async ({ id, name, size }) => ({
-            src: await fs.promises.readFile(
-              path.join(dir, id) + ".svg",
-              "utf8"
-            ),
+            src: await fs.promises.readFile(path.join(dir, id) + ".svg", "utf8"),
             name,
             size,
-          }))
+          })),
         );
       })();
     },

@@ -1,11 +1,10 @@
 {
   "files": {
-    "includes": ["**", "!**/.direnv", "!**/node_modules"]
+    "includes": ["**", "!**/.direnv", "!**/node_modules", "!fixtures/output"]
   },
 
   "formatter": {
     "indentStyle": "space",
-    "indentWidth": 4,
     "lineWidth": 120
   },
 

@@ -1,8 +1,8 @@
-import { mkdirp } from "mkdirp";
 import * as path from "node:path";
-import { Color, generate } from "../../cli/shared";
-import * as t from "io-ts";
 import { array, either, ord, pipeable } from "fp-ts";
+import * as t from "io-ts";
+import { mkdirp } from "mkdirp";
+import { type Color, generate } from "../../cli/shared";
 
 interface Env {
   verbose: boolean;
@@ -13,12 +13,7 @@ const Options = t.type({
 });
 type Options = t.TypeOf<typeof Options>;
 
-export default async function (
-  {}: Env,
-  base: string,
-  rawOptions: unknown,
-  colors: Array<Color>
-) {
+export default async function ({}: Env, base: string, rawOptions: unknown, colors: Array<Color>) {
   const options = pipeable.pipe(
     Options.decode(rawOptions),
     either.fold(
@@ -29,8 +24,8 @@ export default async function (
       },
       (config) => {
         return config;
-      }
-    )
+      },
+    ),
   );
 
   const { output } = options;
@@ -45,15 +40,11 @@ export default async function (
   generate(path.join(base, output), async (write) => {
     const sorted = pipeable.pipe(
       Object.entries(obj),
-      array.sortBy([
-        ord.contramap<string, [string, unknown]>((x) => x[0])(ord.ordString),
-      ])
+      array.sortBy([ord.contramap<string, [string, unknown]>((x) => x[0])(ord.ordString)]),
     );
 
     for (const [k, v] of sorted) {
-      await write(
-        `export const ${camelize(k)} = ${JSON.stringify(v)} as const\n`
-      );
+      await write(`export const ${camelize(k)} = ${JSON.stringify(v)} as const\n`);
       await write("\n");
     }
   });
@@ -73,8 +64,6 @@ export default async function (
 function camelize(str: string) {
   return str
     .replace(/[^a-zA-Z0-9]+/g, " ")
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-      return index === 0 ? word.toLowerCase() : word.toUpperCase();
-    })
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => (index === 0 ? word.toLowerCase() : word.toUpperCase()))
     .replace(/\s+/g, "");
 }
