@@ -65,9 +65,6 @@ importers:
       mkdirp:
         specifier: ^3.0.1
         version: 3.0.1
-      prettier:
-        specifier: ^3.7.3
-        version: 3.7.3
       rollup:
         specifier: ^4.53.3
         version: 4.53.3
@@ -95,9 +92,6 @@ importers:
       '@svgr/plugin-svgo':
         specifier: ^8.1.0
         version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
-      prettier:
-        specifier: ^3.4.2
-        version: 3.7.3
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -113,9 +107,6 @@ importers:
       '@svgr/plugin-svgo':
         specifier: ^8.1.0
         version: 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
-      prettier:
-        specifier: ^3.4.2
-        version: 3.7.3
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -991,11 +982,6 @@ packages:
   picomatch@4.0.3:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
-
-  prettier@3.7.3:
-    resolution: {integrity: sha512-QgODejq9K3OzoBbuyobZlUhznP5SKwPqp+6Q6xw6o8gnhr4O85L2U915iM2IDcfF2NPXVaM9zlo9tdwipnYwzg==}
-    engines: {node: '>=14'}
-    hasBin: true
 
   randombytes@2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
@@ -1894,8 +1880,6 @@ snapshots:
   picocolors@1.1.1: {}
 
   picomatch@4.0.3: {}
-
-  prettier@3.7.3: {}
 
   randombytes@2.1.0:
     dependencies:

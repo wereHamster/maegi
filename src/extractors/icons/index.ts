@@ -56,8 +56,7 @@ export default async function (
       await write(
         `export const descriptors = [${names.map(
           (name) => `__descriptor_${name}`
-        )}] as const`,
-        { prettier: {} }
+        )}] as const`
       );
     }),
   ]);
