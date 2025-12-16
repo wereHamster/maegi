@@ -1,22 +1,15 @@
-import { mkdirp } from "mkdirp";
 import * as path from "node:path";
+import { mkdirp } from "mkdirp";
 import textTable from "text-table";
-import { generate, Icon, writeIconModule } from "../../cli/shared";
+import { generate, type Icon, writeIconModule } from "../../cli/shared";
 import { groupBy } from "../../cli/stdlib/groupBy";
 
 interface Options {
   verbose: boolean;
 }
 
-export default async function (
-  { verbose }: Options,
-  base: string,
-  { output }: { output: string },
-  icons: Array<Icon>
-) {
-  const allSizes = [...new Set(icons.map((x) => x.size))].sort(
-    (a, b) => +a - +b
-  );
+export default async function ({ verbose }: Options, base: string, { output }: { output: string }, icons: Array<Icon>) {
+  const allSizes = [...new Set(icons.map((x) => x.size))].sort((a, b) => +a - +b);
   const groups = groupBy((x) => x.name, icons);
   const names = [...groups.keys()].sort();
 
@@ -49,15 +42,9 @@ export default async function (
 
       await write(`\n`);
       await write(`export type Size = ${allSizes.join(" | ")}\n`);
-      await write(
-        `export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`
-      );
+      await write(`export const enumSize: Size[] = [ ${allSizes.join(", ")} ]\n`);
       await write(`\n`);
-      await write(
-        `export const descriptors = [${names.map(
-          (name) => `__descriptor_${name}`
-        )}] as const`
-      );
+      await write(`export const descriptors = [${names.map((name) => `__descriptor_${name}`)}] as const`);
     }),
   ]);
 
@@ -71,25 +58,14 @@ export default async function (
         ["", ...allSizes],
         [],
         ...names.map((name, i) => {
-          const symbol =
-            i === 0
-              ? names.length === 1
-                ? "─"
-                : "┌"
-              : i === names.length - 1
-              ? "└"
-              : "├";
+          const symbol = i === 0 ? (names.length === 1 ? "─" : "┌") : i === names.length - 1 ? "└" : "├";
 
           const instances = groups.get(name) || [];
-          const sizes = allSizes.map((x) =>
-            instances.some((i) => i.size === x)
-              ? "*".padStart(2)
-              : "".padStart(2)
-          );
+          const sizes = allSizes.map((x) => (instances.some((i) => i.size === x) ? "*".padStart(2) : "".padStart(2)));
 
           return [`${symbol} ${name.padEnd(10)}`, ...sizes];
         }),
-      ])
+      ]),
     );
     console.log("");
   }

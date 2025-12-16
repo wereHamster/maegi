@@ -1,19 +1,16 @@
-import * as svgr from "@svgr/core";
-import svgrPluginSvgo from "@svgr/plugin-svgo";
-import svgrPluginJsx from "@svgr/plugin-jsx";
 import * as fs from "node:fs";
-import { mkdirp } from "mkdirp";
 import * as path from "node:path";
-import { Icon } from "./types";
+import * as svgr from "@svgr/core";
+import svgrPluginJsx from "@svgr/plugin-jsx";
+import svgrPluginSvgo from "@svgr/plugin-svgo";
+import { mkdirp } from "mkdirp";
+import type { Icon } from "./types";
 
 export * from "./types";
 
 export function toCamelCase(x: string) {
-  return ("_" + x.replace(/^ic_/, "")).replace(
-    /^([A-Z])|[\s-_](\w)/g,
-    function (_match, p1, p2) {
-      return p2 ? p2.toUpperCase() : p1.toLowerCase();
-    }
+  return `_${x.replace(/^ic_/, "")}`.replace(/^([A-Z])|[\s-_](\w)/g, (_match, p1, p2) =>
+    p2 ? p2.toUpperCase() : p1.toLowerCase(),
   );
 }
 
@@ -32,7 +29,7 @@ export function parseIconName(s: string) {
 
 export async function generate(
   filename: string,
-  f: (_: (str: string) => Promise<void>) => Promise<void>
+  f: (_: (str: string) => Promise<void>) => Promise<void>,
 ): Promise<void> {
   const stream = fs.createWriteStream(filename);
 
@@ -70,16 +67,11 @@ export function writeIconModule(base: string) {
     name: "${name}",
     instances: [
       ${sortedInstances
-        .map(
-          ({ size }) =>
-            `{ size: ${size || `"responsive"`}, Component: ${name}${
-              size || ""
-            } }`
-        )
+        .map(({ size }) => `{ size: ${size || `"responsive"`}, Component: ${name}${size || ""} }`)
         .join(",")}
     ]
   } as const;
-  `
+  `,
       );
     });
   };

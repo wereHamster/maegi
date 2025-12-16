@@ -24,3 +24,16 @@ jobs:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
 
       - run: git diff --exit-code
+
+  biome:
+    if: github.event.pull_request.draft == false
+    name: Biome
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: DeterminateSystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
+
+      - run: nix run .#nix-develop .#workflow
+
+      - run: biome check --reporter=github .

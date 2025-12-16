@@ -1,0 +1,30 @@
+{
+  "files": {
+    "includes": [
+      "**",
+      "!**/.direnv",
+      "!**/node_modules",
+
+      "!fixtures/output",
+
+      "!packages/cli/index.js",
+      "!packages/core"
+    ]
+  },
+
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 120
+  },
+
+  "linter": {
+    "rules": {
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off"
+      }
+    }
+  }
+}

@@ -26,9 +26,7 @@ export interface Icon {
   src: string;
 }
 
-export type Image =
-  | { name: string; svg: string }
-  | { name: string; buffer: Buffer };
+export type Image = { name: string; svg: string } | { name: string; buffer: Buffer };
 
 export interface Color {
   name: string;
