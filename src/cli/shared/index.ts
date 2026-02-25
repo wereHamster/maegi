@@ -58,7 +58,7 @@ export function writeIconModule(base: string) {
 
       const sortedInstances = [...instances].sort((a, b) => a.size - b.size);
       for (const icon of sortedInstances) {
-        await write(`${await iconCode(icon)}`);
+        await write(`${await iconCode(icon)}\n`);
         await write(`\n`);
       }
 
