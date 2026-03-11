@@ -6,3 +6,4 @@ packages/cli/index.js
 packages/core/
 
 tsconfig.tsbuildinfo
+package-lock.json
