@@ -84,9 +84,10 @@ export async function iconCode({ name, size, src }: Icon): Promise<string> {
   const options: svgr.Config = {
     template({ componentName, jsx }, { tpl }) {
       return tpl`
-        export const ${componentName} = React.memo<React.SVGProps<SVGSVGElement>>(props => ${jsx});
+        export const ${componentName} = (props: React.SVGProps<SVGSVGElement>) => ${jsx};
       `;
     },
+    typescript: true,
     plugins: [svgrPluginSvgo, svgrPluginJsx],
     svgoConfig: {
       multipass: true,
