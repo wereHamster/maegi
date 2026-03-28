@@ -30,6 +30,7 @@
             pkgs.nodejs
             pkgs.pnpm
             pkgs.biome
+            pkgs.esbuild
           ];
         };
 
@@ -38,6 +39,7 @@
             pkgs.nodejs
             pkgs.pnpm
             pkgs.biome
+            pkgs.esbuild
           ];
         };
       }

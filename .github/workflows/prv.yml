@@ -18,9 +18,9 @@ jobs:
       - run: ./node_modules/.bin/tsc --build
       - run: ./node_modules/.bin/tsc --build packages/core/tsconfig.json
 
-      - run: ./node_modules/.bin/rollup -c rollup.config.js
+      - run: esbuild src/cli/index.ts --bundle --platform=node --target=node24 --outfile=packages/cli/index.js --format=esm --minify --external:sharp --banner:js='#!/usr/bin/env node'
 
-      - run: rm -rf fixtures/output && ./packages/cli/bin fixtures/maegi.yml
+      - run: rm -rf fixtures/output && ./packages/cli/index.js fixtures/maegi.yml
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
 

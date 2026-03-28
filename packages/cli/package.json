@@ -3,13 +3,10 @@
   "version": "0.0.0",
   "type": "module",
   "dependencies": {
-    "@svgr/core": "^8.1.0",
-    "@svgr/plugin-svgo": "^8.1.0",
-    "@svgr/plugin-jsx": "^8.1.0",
     "sharp": "^0.34.5"
   },
   "bin": {
-    "maegi": "./bin"
+    "maegi": "./index.js"
   },
   "repository": {
     "type": "git",
