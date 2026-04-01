@@ -92,6 +92,21 @@ export async function iconCode({ name, size, src }: Icon): Promise<string> {
     svgoConfig: {
       multipass: true,
       plugins: [
+        /*
+         * It is important to keep the 'convertColors' plugin before
+         * 'preset-default'.
+         *
+         * The 'preset-default' plugin includes 'removeUnknownsAndDefaults',
+         * which removes any fill/stroke attributes that are set to their
+         * default (eg. fill="#000"). If the 'convertColors' plugin comes
+         * after, it doesn't have a chance to replace those fill/stroke
+         * colors with currentColor.
+         */
+        {
+          name: "convertColors",
+          params: { currentColor: true },
+        },
+
         {
           name: "preset-default",
           params: {
@@ -100,16 +115,11 @@ export async function iconCode({ name, size, src }: Icon): Promise<string> {
             },
           },
         },
-
-        "sortAttrs",
-        {
-          name: "convertColors",
-          params: { currentColor: true },
-        },
         {
           name: "removeAttrs",
           params: { attrs: "(xmlns.*)" },
         },
+        "sortAttrs",
       ],
     },
   };
