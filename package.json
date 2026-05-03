@@ -4,6 +4,8 @@
   "dependencies": {
     "@babel/core": "^7.29.0",
     "@babel/preset-typescript": "^7.28.5",
+    "@changesets/cli": "^2.31.0",
+    "@changesets/get-github-info": "^0.8.0",
     "@octokit/graphql": "^9.0.3",
     "@rollup/plugin-babel": "^7.0.0",
     "@rollup/plugin-commonjs": "^29.0.2",
