@@ -1,6 +1,6 @@
 {
   "name": "@maegi/cli",
-  "version": "0.0.0",
+  "version": "0.0.19",
   "type": "module",
   "dependencies": {
     "@svgr/core": "^8.1.0",

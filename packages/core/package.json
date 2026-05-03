@@ -1,6 +1,6 @@
 {
   "name": "@maegi/core",
-  "version": "0.0.0",
+  "version": "0.0.19",
   "main": "core/index.js",
   "dependencies": {
     "@svgr/core": "^8.1.0",
