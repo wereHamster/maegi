@@ -6,7 +6,7 @@
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
     "sharp": "^0.34.5",
-    "yaml": "^2.8.2"
+    "yaml": "^2.9.0"
   },
   "repository": {
     "type": "git",
