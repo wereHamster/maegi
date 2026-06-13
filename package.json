@@ -7,7 +7,7 @@
     "@changesets/cli": "^2.31.0",
     "@changesets/get-github-info": "^0.8.0",
     "@octokit/graphql": "^9.0.3",
-    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-babel": "^7.1.0",
     "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
