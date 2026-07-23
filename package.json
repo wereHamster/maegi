@@ -26,7 +26,7 @@
     "rollup": "^4.62.2",
     "sharp": "^0.35.3",
     "text-table": "^0.2.0",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "yaml": "^2.9.0"
   }
 }
