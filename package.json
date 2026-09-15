@@ -6,7 +6,7 @@
     "@babel/preset-typescript": "^8.0.1",
     "@changesets/cli": "^3.0.0",
     "@changesets/get-github-info": "^1.0.0",
-    "@octokit/graphql": "^9.0.4",
+    "@octokit/graphql": "^9.0.5",
     "@rollup/plugin-babel": "^7.1.0",
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
