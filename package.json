@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@babel/core": "^8.0.1",
+    "@babel/core": "^8.0.5",
     "@babel/preset-typescript": "^8.0.1",
     "@changesets/cli": "^3.0.0",
     "@changesets/get-github-info": "^1.0.1",
