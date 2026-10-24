@@ -6,8 +6,8 @@ import {
   type Image,
   parseIconName,
   type TextStyle,
-} from "../../shared";
-import { groupBy } from "../../stdlib/groupBy";
+} from "../../shared/index.js";
+import { groupBy } from "../../stdlib/groupBy.js";
 
 interface Options {
   figmaToken?: string;

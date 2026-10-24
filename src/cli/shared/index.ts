@@ -4,9 +4,9 @@ import * as svgr from "@svgr/core";
 import svgrPluginJsx from "@svgr/plugin-jsx";
 import svgrPluginSvgo from "@svgr/plugin-svgo";
 import { mkdirp } from "mkdirp";
-import type { Icon } from "./types";
+import type { Icon } from "./types.js";
 
-export * from "./types";
+export * from "./types.js";
 
 export function toCamelCase(x: string) {
   return `_${x.replace(/^ic_/, "")}`.replace(/^([A-Z])|[\s-_](\w)/g, (_match, p1, p2) =>

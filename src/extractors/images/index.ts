@@ -2,7 +2,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { mkdirp } from "mkdirp";
 import sharp from "sharp";
-import type { Image } from "../../cli/shared";
+import type { Image } from "../../cli/shared/index.js";
 
 interface Options {
   verbose: boolean;

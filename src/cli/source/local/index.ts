@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { type Assets, emptyAssets, parseIconName } from "../../shared";
+import { type Assets, emptyAssets, parseIconName } from "../../shared/index.js";
 
 export async function loadAssets(basePath: string, source: string): Promise<Assets> {
   return {

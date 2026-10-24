@@ -1,4 +1,4 @@
-import * as Figma from "./figma/index";
-import * as Local from "./local/index";
+import * as Figma from "./figma/index.js";
+import * as Local from "./local/index.js";
 
 export { Figma, Local };
