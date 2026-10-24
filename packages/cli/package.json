@@ -9,11 +9,10 @@
     "sharp": "^0.35.5"
   },
   "bin": {
-    "maegi": "./bin"
+    "maegi": "./dist/index.js"
   },
   "files": [
-    "bin",
-    "index.js",
+    "dist",
     "CHANGELOG.md"
   ],
   "repository": {

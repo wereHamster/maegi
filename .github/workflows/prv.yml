@@ -34,7 +34,7 @@ jobs:
 
       - run: ./node_modules/.bin/rolldown -c rolldown.config.js
 
-      - run: rm -rf fixtures/output && ./packages/cli/bin fixtures/maegi.yml
+      - run: rm -rf fixtures/output && node packages/cli/dist/index.js fixtures/maegi.yml
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
 

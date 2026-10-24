@@ -7,7 +7,7 @@
 
       "!fixtures/output",
 
-      "!packages/cli/index.js"
+      "!packages/cli/dist"
     ]
   },
 
