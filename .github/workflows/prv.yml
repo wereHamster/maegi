@@ -57,4 +57,4 @@ jobs:
 
       - run: nix run .#nix-develop .#workflow
 
-      - run: biome ci .
+      - run: biome ci
