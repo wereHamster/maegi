@@ -5,3 +5,5 @@ allowBuilds:
   sharp: false
 
 minimumReleaseAge: 21600
+minimumReleaseAgeExclude:
+  - 'serialize-javascript@7.1.3'
