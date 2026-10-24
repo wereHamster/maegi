@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd packages
-
-for PACKAGE in *; do
-  if test -f "$PACKAGE/package.json"; then
-    pushd "$PACKAGE"; pnpm publish --registry https://registry.npmjs.org --access public --no-git-checks; popd
-  fi
-done
+cd packages/cli
+pnpm publish --registry https://registry.npmjs.org --access public --no-git-checks
