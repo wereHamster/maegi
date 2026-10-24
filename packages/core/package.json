@@ -1,7 +1,11 @@
 {
   "name": "@maegi/core",
   "version": "0.0.20",
-  "main": "core/index.js",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",

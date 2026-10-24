@@ -8,7 +8,7 @@ function externalFor(pkg) {
 }
 
 export default defineConfig({
-  input: "src/cli/index.ts",
+  input: "packages/cli/src/index.ts",
   platform: "node",
 
   /*
