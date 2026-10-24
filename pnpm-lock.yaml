@@ -7,25 +7,19 @@ settings:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@changesets/cli':
         specifier: ^3.0.3
         version: 3.0.3
       '@changesets/get-github-info':
         specifier: ^1.0.1
         version: 1.0.1
+      '@maegi/core':
+        specifier: workspace:*
+        version: link:packages/core
       '@octokit/graphql':
         specifier: ^9.0.5
         version: 9.0.5
-      '@svgr/core':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@7.0.2)
-      '@svgr/plugin-jsx':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@7.0.2))
-      '@svgr/plugin-svgo':
-        specifier: ^8.1.0
-        version: 8.1.0(@svgr/core@8.1.0(typescript@7.0.2))(typescript@7.0.2)
       '@types/node':
         specifier: ^24.19.0
         version: 24.19.0
@@ -38,34 +32,12 @@ importers:
       commander:
         specifier: ^15.0.0
         version: 15.0.0
-      fp-ts:
-        specifier: ^2.16.11
-        version: 2.16.11
-      io-ts:
-        specifier: ^2.2.22
-        version: 2.2.22(fp-ts@2.16.11)
-      mkdirp:
-        specifier: ^3.0.1
-        version: 3.0.1
       rolldown:
         specifier: ^1.2.13
         version: 1.2.13
-      sharp:
-        specifier: ^0.35.5
-        version: 0.35.5(@types/node@24.19.0)
-      text-table:
-        specifier: ^0.2.0
-        version: 0.2.0
       typescript:
         specifier: ^7.0.2
         version: 7.0.2
-      yaml:
-        specifier: ^2.9.1
-        version: 2.9.1
-    devDependencies:
-      '@maegi/core':
-        specifier: workspace:*
-        version: link:packages/core
 
   packages/cli:
     dependencies:
@@ -87,12 +59,27 @@ importers:
       '@svgr/core':
         specifier: ^8.1.0
         version: 8.1.0(typescript@7.0.2)
+      '@svgr/plugin-jsx':
+        specifier: ^8.1.0
+        version: 8.1.0(@svgr/core@8.1.0(typescript@7.0.2))
       '@svgr/plugin-svgo':
         specifier: ^8.1.0
         version: 8.1.0(@svgr/core@8.1.0(typescript@7.0.2))(typescript@7.0.2)
+      fp-ts:
+        specifier: ^2.16.11
+        version: 2.16.11
+      io-ts:
+        specifier: ^2.2.22
+        version: 2.2.22(fp-ts@2.16.11)
+      mkdirp:
+        specifier: ^3.0.1
+        version: 3.0.1
       sharp:
         specifier: ^0.35.5
         version: 0.35.5(@types/node@24.19.0)
+      text-table:
+        specifier: ^0.2.0
+        version: 0.2.0
       yaml:
         specifier: ^2.9.1
         version: 2.9.1

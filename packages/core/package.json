@@ -8,8 +8,13 @@
   },
   "dependencies": {
     "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
+    "fp-ts": "^2.16.11",
+    "io-ts": "^2.2.22",
+    "mkdirp": "^3.0.1",
     "sharp": "^0.35.5",
+    "text-table": "^0.2.0",
     "yaml": "^2.9.1"
   },
   "repository": {
