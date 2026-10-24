@@ -11,9 +11,11 @@ export default defineConfig({
   input: "src/cli/index.ts",
   platform: "node",
 
-  // Prefer the ES module build of dependencies. Rolldown defaults to `main` on
-  // the node platform, which picks the CommonJS builds of fp-ts and io-ts and
-  // prevents them from being tree-shaken.
+  /*
+   * Prefer the ES module build of dependencies. Rolldown defaults to `main` on
+   * the node platform, which picks the CommonJS builds of fp-ts and io-ts and
+   * prevents them from being tree-shaken.
+   */
   resolve: { mainFields: ["module", "main"] },
 
   external: externalFor("cli"),
