@@ -2,7 +2,7 @@ import * as path from "node:path";
 import { array, either, ord, pipeable } from "fp-ts";
 import * as t from "io-ts";
 import { mkdirp } from "mkdirp";
-import { generate, type TextStyle } from "../../cli/shared";
+import { generate, type TextStyle } from "../../lib";
 
 interface Env {
   verbose: boolean;

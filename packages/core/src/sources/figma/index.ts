@@ -1,13 +1,5 @@
-import {
-  type Assets,
-  type Color,
-  emptyAssets,
-  type Icon,
-  type Image,
-  parseIconName,
-  type TextStyle,
-} from "../../shared";
-import { groupBy } from "../../stdlib/groupBy";
+import { type Assets, type Color, emptyAssets, type Icon, type Image, parseIconName, type TextStyle } from "../../lib";
+import { groupBy } from "../../lib/groupBy";
 
 interface Options {
   figmaToken?: string;
