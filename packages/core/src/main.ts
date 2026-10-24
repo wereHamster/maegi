@@ -2,9 +2,9 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { either, pipeable } from "fp-ts";
 import YAML from "yaml";
-import { Config, type Source } from "../config";
-import * as Extractors from "../extractors";
-import { Figma, Local } from "./source";
+import { Config, type Source } from "./config";
+import * as Extractors from "./extractors";
+import { Figma, Local } from "./sources";
 
 interface Options {
   verbose: boolean;

@@ -1,8 +1,8 @@
 import * as path from "node:path";
 import { mkdirp } from "mkdirp";
 import textTable from "text-table";
-import { generate, type Icon, writeIconModule } from "../../cli/shared";
-import { groupBy } from "../../cli/stdlib/groupBy";
+import { generate, type Icon, writeIconModule } from "../../lib";
+import { groupBy } from "../../lib/groupBy";
 
 interface Options {
   verbose: boolean;
