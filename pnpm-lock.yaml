@@ -24,8 +24,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0(@svgr/core@8.1.0(typescript@7.0.2))(typescript@7.0.2)
       '@types/node':
-        specifier: ^24.19.0
-        version: 24.19.0
+        specifier: ^24.19.2
+        version: 24.19.2
       '@types/text-table':
         specifier: ^0.2.5
         version: 0.2.5
@@ -46,7 +46,7 @@ importers:
         version: 1.2.13
       sharp:
         specifier: ^0.35.5
-        version: 0.35.5(@types/node@24.19.0)
+        version: 0.35.5(@types/node@24.19.2)
       text-table:
         specifier: ^0.2.0
         version: 0.2.0
@@ -65,7 +65,7 @@ importers:
     dependencies:
       sharp:
         specifier: ^0.35.5
-        version: 0.35.5(@types/node@24.19.0)
+        version: 0.35.5(@types/node@24.19.2)
 
   packages/core:
     dependencies:
@@ -77,7 +77,7 @@ importers:
         version: 8.1.0(@svgr/core@8.1.0(typescript@7.0.2))(typescript@7.0.2)
       sharp:
         specifier: ^0.35.5
-        version: 0.35.5(@types/node@24.19.0)
+        version: 0.35.5(@types/node@24.19.2)
       yaml:
         specifier: ^2.9.1
         version: 2.9.1
@@ -597,8 +597,8 @@ packages:
     peerDependencies:
       '@svgr/core': '*'
 
-  '@types/node@24.19.0':
-    resolution: {integrity: sha512-zY+5tKxXdhGh1PYI0ac+7juvEu4OI6vWtVVoj5i2m42jxAY1U+zHGt6QCyOFwykdP62sM3MJ9stoYYUw5aCWew==}
+  '@types/node@24.19.2':
+    resolution: {integrity: sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==}
 
   '@types/text-table@0.2.5':
     resolution: {integrity: sha512-hcZhlNvMkQG/k1vcZ6yHOl6WAYftQ2MLfTHcYRZ2xYZFD8tGVnE3qFV0lj1smQeDSR7/yY0PyuUalauf33bJeA==}
@@ -1558,7 +1558,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@types/node@24.19.0':
+  '@types/node@24.19.2':
     dependencies:
       undici-types: 7.24.6
 
@@ -1859,7 +1859,7 @@ snapshots:
 
   semver@7.8.5: {}
 
-  sharp@0.35.5(@types/node@24.19.0):
+  sharp@0.35.5(@types/node@24.19.2):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -1890,7 +1890,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.5
       '@img/sharp-win32-ia32': 0.35.5
       '@img/sharp-win32-x64': 0.35.5
-      '@types/node': 24.19.0
+      '@types/node': 24.19.2
 
   shell-quote@1.12.0: {}
 
