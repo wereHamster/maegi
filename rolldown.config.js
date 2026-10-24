@@ -21,9 +21,14 @@ export default defineConfig({
   external: externalFor("cli"),
 
   output: {
-    file: "packages/cli/index.js",
+    file: "packages/cli/dist/index.js",
     format: "es",
     codeSplitting: false,
     minify: true,
+
+    /*
+     * The bundle is the executable the `bin` field points at.
+     */
+    banner: "#!/usr/bin/env node",
   },
 });
