@@ -30,7 +30,7 @@ jobs:
       - run: ./node_modules/.bin/tsc --build
       - run: ./node_modules/.bin/tsc --build packages/core/tsconfig.json
 
-      - run: ./node_modules/.bin/rollup -c rollup.config.js
+      - run: ./node_modules/.bin/rolldown -c rolldown.config.js
 
       # ---------------------------------------------------------------------
       # Publish
