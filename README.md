@@ -30,6 +30,7 @@ Maegi supports the following extractors:
 - **colors**
 - **icons**: SVGs which follow a specific naming convention are converted to React components.
 - **assets**: Images marked in Figma as exports are downloaded and saved as SVG or lossless webp.
+- **typography**: Text styles defined in Figma are exported with their font properties.
 
 Not all extractors work with all sources. For example, the `local:` source supports only `icons`.
 
@@ -52,3 +53,7 @@ Maegi also creates an index file which re-exports all icons, for your convenienc
 Images marked for export in Figma are downloaded and placed into the output folder. Both SVG and PNG format is supported.
 
 PNG images are converted to lossless webp to save space.
+
+### typography
+
+The `typography` extractor generates a file which exports all text styles. Each style has the font family, font weight, font size, letter spacing, line height (in pixels) and OpenType flags. Styles are grouped by the path in their name, the same way as colors.
