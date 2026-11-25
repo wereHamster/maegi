@@ -7,7 +7,7 @@
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.6.6",
     "@types/text-table": "^0.2.5",
     "commander": "^15.1.0",
     "fp-ts": "^2.16.11",
